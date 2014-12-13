@@ -1,0 +1,612 @@
+Iteration 2 starts on  06/12/2014 - 10:19:07
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+Copy speed into join
+Complete join
+Finished calc new cost
+Completed.
+Network checked out
+Building
+completed
+Script completed successfully.
+Error log is BuildErrors.txt if there's any error.
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-1.exitcode = 0
+Process-2.exitcode = -1073741819
+Process-3.exitcode = -1073741819
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_1p line 169
+local variable 'sys' referenced before assignment
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (current)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij2.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow2.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+bisection starts on  11:14:06
+AF/GF Ratio: 12.000730555
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-6.exitcode = 0
+Process-7.exitcode = 0
+Process-8.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.7160374044
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.320495605469
+bisection ends on  12:06:54 found alpha = 0.320495605469
+alpha: 0.320495605469
+bisection starts on  12:06:54
+AF/GF Ratio: 11.9079927294
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-11.exitcode = 0
+Process-12.exitcode = 0
+Process-13.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1743
+AF/GF Ratio: 11.9157039201
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.703552246094
+bisection ends on  12:58:03 found alpha = 0.703552246094
+alpha: 0.703552246094
+bisection starts on  12:58:03
+AF/GF Ratio: 11.9134169136
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/DesNetwork checked out
+Building
+completed
+Script completed successfully.
+Error log is BuildErrors.txt if there's any error.
+ktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-16.exitcode = 0
+Process-17.exitcode = 0
+Process-18.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.8653915552
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.299499511719
+bisection ends on  13:49:04 found alpha = 0.299499511719
+alpha: 0.299499511719
+bisection starts on  13:49:04
+AF/GF Ratio: 11.8989926101
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-21.exitcode = 0
+Process-22.exitcode = 0
+Process-23.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.829845716
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.105163574219
+bisection ends on  14:40:09 found alpha = 0.105163574219
+alpha: 0.105163574219
+bisection starts on  14:40:09
+AF/GF Ratio: 11.8916828646
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-26.exitcode = 0
+Process-27.exitcode = 0
+Process-28.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.8442163981
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.461242675781
+bisection ends on  15:31:14 found alpha = 0.461242675781
+alpha: 0.461242675781
+bisection starts on  15:31:14
+AF/GF Ratio: 11.8697421213
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-31.exitcode = 0
+Process-32.exitcode = -1073741819
+Process-33.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.7830914708
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.999938964844
+bisection ends on  16:22:24 found alpha = 0.999938964844
+alpha: 0.999938964844
+AF/GF Ratio: 11.8697421213
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd2-P.csv
+final ratio after dta: 11.8697421213
+Iteration 3 starts on  06/12/2014 - 16:22:24
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+Copy speed into join
+Complete join
+Finished calc new cost
+Completed.
+Network checked out
+Building
+completed
+Script completed successfully.
+Error log is BuildErrors.txt if there's any error.
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-34.exitcode = 0
+Process-35.exitcode = 0
+Process-36.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_1p line 169
+local variable 'sys' referenced before assignment
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (current)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij3.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow3.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+bisection starts on  17:15:24
+AF/GF Ratio: 11.7678349918
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-39.exitcode = 0
+Process-40.exitcode = 0
+Process-41.exitcode = -1073741819
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.8769573767
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.777282714844
+bisection ends on  18:07:27 found alpha = 0.777282714844
+alpha: 0.777282714844
+bisection starts on  18:07:27
+AF/GF Ratio: 11.8524791247
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-44.exitcode = 0
+Process-45.exitcode = 0
+Process-46.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.8249109843
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.526672363281
+bisection ends on  18:58:09 found alpha = 0.526672363281
+alpha: 0.526672363281
+bisection starts on  18:58:09
+AF/GF Ratio: 11.8379437446
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-49.exitcode = 0
+Process-50.exitcode = 0
+Process-51.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.781668388
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.306579589844
+bisection ends on  19:50:38 found alpha = 0.306579589844
+alpha: 0.306579589844
+bisection starts on  19:50:38
+AF/GF Ratio: 11.8206338085
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-54.exitcode = 0
+Process-55.exitcode = 0
+Process-56.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.8605665082
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.445983886719
+bisection ends on  20:47:53 found alpha = 0.445983886719
+alpha: 0.445983886719
+bisection starts on  20:47:53
+AF/GF Ratio: 11.8384098797
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-59.exitcode = 0
+Process-60.exitcode = 0
+Process-61.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.8305486975
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.0357055664062
+bisection ends on  21:41:55 found alpha = 0.0357055664062
+alpha: 0.0357055664062
+bisection starts on  21:41:55
+AF/GF Ratio: 11.8381290119
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-64.exitcode = 0
+Process-65.exitcode = 0
+Process-66.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.903949509
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.197448730469
+bisection ends on  22:36:15 found alpha = 0.197448730469
+alpha: 0.197448730469
+bisection starts on  22:36:15
+AF/GF Ratio: 11.8510674513
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-69.exitcode = 0
+Process-70.exitcode = 0
+Process-71.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+An error occurred in ModGIS.GISops_dta line 80
+local variable 'sys' referenced before assignment
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+AF/GF Ratio: 11.943466748
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.999938964844
+bisection ends on  23:30:22 found alpha = 0.999938964844
+alpha: 0.999938964844
+AF/GF Ratio: 11.8510674513
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd3-P.csv
+final ratio after dta: 11.8510674513

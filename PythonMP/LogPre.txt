@@ -1,0 +1,17 @@
+Iteration 2 starts on  03/12/2014 - 10:37:14
+C:/Users/Dennis/Desktop/DATA/TTpubPost.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+Process-3.exitcode = -1073741819
+Process-4.exitcode = -1073741819
+Process-5.exitcode = 0
+oj DTP.dbf
+C:/Users/Dennis/Desktop/DATA/CSV/TTP.dbf size: 8069
+TT matrix error: recompute

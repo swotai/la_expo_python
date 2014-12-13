@@ -1,0 +1,2 @@
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\bin\NETFX 4.0 Tools\gacutil.exe" /i "C:\Program Files (x86)\ArcGIS\Desktop10.2\bin\GpMetadataFunctions.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\bin\NETFX 4.0 Tools\gacutil.exe" /i "C:\Program Files (x86)\ArcGIS\Desktop10.2\bin\MetadataTranslator.dll"

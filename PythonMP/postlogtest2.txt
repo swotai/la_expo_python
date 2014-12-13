@@ -1,0 +1,147 @@
+Iteration 2 starts on  01/12/2014 - 20:33:12
+C:/Users/Dennis/Desktop/DATApost/TTpubPost.csv , at C:/Users/Dennis/Desktop/DATApost/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+Process-3.exitcode = 0
+Process-4.exitcode = 0
+Process-5.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (current)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATApost/CSV/Sij2.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATApost/CSV/TTflow2.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+bisection starts on  21:11:54
+AF/GF Ratio: 11.0422645839
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATApost/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-8.exitcode = 0
+Process-9.exitcode = 0
+Process-10.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.5933187055
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.781433105469
+bisection ends on  22:04:26 found alpha = 0.781433105469
+alpha: 0.781433105469
+bisection starts on  22:04:26
+AF/GF Ratio: 11.4682303465
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATApost/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-13.exitcode = 0
+Process-14.exitcode = 0
+Process-15.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.5298913922
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.149597167969
+bisection ends on  22:56:46 found alpha = 0.149597167969
+alpha: 0.149597167969
+bisection starts on  22:56:46
+AF/GF Ratio: 11.4774126795
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATApost/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATApost/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-18.exitcode = 0
+Process-19.exitcode = 0
+Process-20.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.5119877554
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.999938964844
+bisection ends on  23:48:41 found alpha = 0.999938964844
+alpha: 0.999938964844
+Exception in ModSpeedCalc
+An error occurred in ModSpeedCalc.flow2speed line 54
+File C:/Users/Dennis/Desktop/DATApost/CSV/xdetflow2.csv does not exist
+final ratio after dta: None

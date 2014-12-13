@@ -1,0 +1,598 @@
+Iteration 1 starts on  05/12/2014 - 11:45:51
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-3.exitcode = 0
+Process-4.exitcode = 0
+Process-5.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (current)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij1.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow1.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+bisection starts on  12:42:11
+AF/GF Ratio: 10.0706588646
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-8.exitcode = 0
+Process-9.exitcode = 0
+Process-10.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.759952492
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.823303222656
+bisection ends on  13:33:38 found alpha = 0.823303222656
+alpha: 0.823303222656
+bisection starts on  13:33:38
+AF/GF Ratio: 10.6313751479
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-13.exitcode = 0
+Process-14.exitcode = -1073741819
+Process-15.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.7857252159
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.418151855469
+bisection ends on  14:26:28 found alpha = 0.418151855469
+alpha: 0.418151855469
+bisection starts on  14:26:28
+AF/GF Ratio: 10.6953762672
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-18.exitcode = 0
+Process-19.exitcode = -1073741819
+Process-20.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.711647019
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.342590332031
+bisection ends on  15:17:55 found alpha = 0.342590332031
+alpha: 0.342590332031
+bisection starts on  15:17:55
+AF/GF Ratio: 10.7009449002
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-23.exitcode = 0
+Process-24.exitcode = 0
+Process-25.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.714942411
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.0829467773438
+bisection ends on  16:09:35 found alpha = 0.0829467773438
+alpha: 0.0829467773438
+bisection starts on  16:09:35
+AF/GF Ratio: 10.7021045576
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-28.exitcode = 0
+Process-29.exitcode = 0
+Process-30.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.7428306733
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.438293457031
+bisection ends on  17:01:12 found alpha = 0.438293457031
+alpha: 0.438293457031
+bisection starts on  17:01:12
+AF/GF Ratio: 10.719916474
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-33.exitcode = 0
+Process-34.exitcode = 0
+Process-35.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.7150635511
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.0894165039062
+bisection ends on  17:52:45 found alpha = 0.0894165039062
+alpha: 0.0894165039062
+bisection starts on  17:52:45
+AF/GF Ratio: 10.7194823637
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-38.exitcode = 0
+Process-39.exitcode = 0
+Process-40.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.7395822111
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.389587402344
+bisection ends on  18:44:41 found alpha = 0.389587402344
+alpha: 0.389587402344
+bisection starts on  18:44:41
+AF/GF Ratio: 10.7273040585
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-43.exitcode = 0
+Process-44.exitcode = 0
+Process-45.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.6806260161
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.750061035156
+bisection ends on  19:36:16 found alpha = 0.750061035156
+alpha: 0.750061035156
+bisection starts on  19:36:16
+AF/GF Ratio: 10.692254559
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-48.exitcode = 0
+Process-49.exitcode = 0
+Process-50.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 10.8096274257
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.999938964844
+bisection ends on  20:28:03 found alpha = 0.999938964844
+alpha: 0.999938964844
+AF/GF Ratio: 10.692254559
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd1.csv
+final ratio after dta: 10.692254559
+Iteration 2 starts on  05/12/2014 - 20:28:03
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-53.exitcode = -1073741819
+Process-54.exitcode = 0
+Process-55.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (current)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij2.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow2.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1742
+bisection starts on  21:04:44
+AF/GF Ratio: 10.9374659428
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-58.exitcode = 0
+Process-59.exitcode = 0
+Process-60.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.4885864973
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.757995605469
+bisection ends on  21:56:29 found alpha = 0.757995605469
+alpha: 0.757995605469
+bisection starts on  21:56:29
+AF/GF Ratio: 11.3501801831
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-63.exitcode = 0
+Process-64.exitcode = 0
+Process-65.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.4204885867
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.579040527344
+bisection ends on  22:48:16 found alpha = 0.579040527344
+alpha: 0.579040527344
+bisection starts on  22:48:16
+AF/GF Ratio: 11.3907857143
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-68.exitcode = 0
+Process-69.exitcode = 0
+Process-70.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.3611070759
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.413269042969
+bisection ends on  23:42:56 found alpha = 0.413269042969
+alpha: 0.413269042969
+bisection starts on  23:42:56
+AF/GF Ratio: 11.3785016729
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-73.exitcode = 0
+Process-74.exitcode = 0
+Process-75.exitcode = -1073741819
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.4094568519
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.0842895507812
+bisection ends on  00:37:14 found alpha = 0.0842895507812
+alpha: 0.0842895507812
+bisection starts on  00:37:14
+AF/GF Ratio: 11.3811043872
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd-temp.csv
+DTA scratch version
+Scratch file removed.
+Copied new temp
+GIS operation
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P1.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P2.gdb
+remove C:/Users/Dennis/Desktop/DATA/LA-scratch-P3.gdb
+making copies of GDB for running. LA-scratch-P.gdb
+removing old TTP.dbf
+removing old TDP.dbf
+removing old DTP.dbf
+removing old TTP.dbf.XML
+removing old TDP.dbf.XML
+removing old DTP.dbf.XML
+Process-78.exitcode = 0
+Process-79.exitcode = 0
+Process-80.exitcode = 0
+oj DTP.dbf
+
+ Solve completed for period P
+allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+AF/GF Ratio: 11.401397879
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/ydetspd-temp.csv
+number of detectors out of order: 0
+number of detectors out of order: 0
+bisection result: 0.999938964844
+bisection ends on  01:29:33 found alpha = 0.999938964844
+alpha: 0.999938964844
+AF/GF Ratio: 11.3811043872
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd2.csv
+final ratio after dta: 11.3811043872
