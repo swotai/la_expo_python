@@ -10,78 +10,17 @@
 # 6, Reiterate
 
 # GIS Operation in one function for MP process.
-import ModSetupWorker, ModGIS, ModAlloc, ModSpeedCalc_avg10, ModUpdateFlow, time
 
-
-def dta_1p(inSpace, currentIter, ratio, FL, limit):
-    from ModBisec import readcsv, bisection, flowGradient
-    
-    # Read AF
-    inAF = inSpace+"AF.csv"
-    fdtype = [('idstn','i8'),('center','i8'),('lane','i8'),('flow','f8')]
-    af = readcsv(inAF, fdtype, incol = 4, sort=0, header = True)
-
-    # Read initial flow vector
-    cff_init = inSpace+"CSV/detflow"+str(currentIter)+"-P.csv"
-    fdtype = [('idstn','i8'),('flow','f8')]
-    cff_init = readcsv(cff_init, fdtype, incol = 2, sort = [0], header = None)
-
-    aft = af['center']*af['flow']
-    aft = aft.sum()
-    cft = af['center']*cff_init['flow']
-    cft = cft.sum()
-    ratio = aft/(cft)
-    print "AF/GF Ratio:", ratio
-
-#    Procedure for new flow
-    alpha = 1
-    
-    while alpha > 0.001:
-        1, Update (Recalculate speed)
-        2, Direction (Predict Flow)
-        3, Determine step (find out alpha)
-        4, Move (Change flow)
-    cff_op = inSpace+"detflow_adj"+str(currentIter)+".csv"
-    fdtype = [('idstn','i8'),('flow','f8')]
-    x1 = readcsv(cff_op, fdtype, incol = 2, sort = [0], header = None)
-    
-    cff_op = inSpace+"detflow_adj"+str(currentIter+1)+".csv"
-    fdtype = [('idstn','i8'),('flow','f8')]
-    y1 = readcsv(cff_op, fdtype, incol = 2, sort = [0], header = None)
-
-    
-    # Make sure the idstn align
-    checksum = x1['idstn'] != y1['idstn']
-    print 'number of detectors out of order:', checksum.sum()
-    if checksum.sum() > 0:
-        print 'OH SHIT'
-
-    # Extract Flow
-    x1 = x1['flow']
-    y1 = y1['flow']
-    
-    # Convert to per lane flow for speed equation
-    # cff_p['flow'] = ratio*0.12*(cff_p['flow'])/af['lane']
-    x1 = ratio * .06 * x1 / af['lane']
-    y1 = ratio * .06 * y1 / af['lane']
-    
-    alpha = bisection(0,1,0.0001, flowGradient, x1, y1, FL, LIMIT)
-    print "solved alpha:", alpha
-    
-    print "new flow"
-    x2 = x1+alpha*(y1-x1)
-
-    return NEWFLOW
-
-
+import ModSetupWorker, ModGIS, ModAlloc, ModUpdateFlow, ModSpeedCalc_avg10
+import time
 
 if __name__ == '__main__':
     # Parameter settings (mostly paths):
     # NOTE: MAKE SURE inSpace folder HAS ending slash "/"
     base = "DriveOnly_LA.gdb"
     temp = "LA-scratch.gdb"
-    #inSpace = "C:/Users/Dennis/Desktop/DATA1/"
-    inSpace = "E:/DATA_testMP/"
+    inSpace = "C:/Users/Dennis/Desktop/DATA/"
+#    inSpace = "E:/DATA_testMP/"
     inGdb = temp
     #inSpeed = "spdtest.csv"
 #    SET whether use transit Pre or Post cost
@@ -131,7 +70,11 @@ if __name__ == '__main__':
     # Off peak commuting penalty
     OPpenalty = 48.4575
 
+    #ACTUAL COMPUTATION START HERE
+    # Import necessary modules
 
+    
+    
     ssdPath = {}
     currentIter = startIter
     try:
@@ -142,29 +85,24 @@ if __name__ == '__main__':
             print "Setting up scratch version"
             tempP = temp[:-4] + "-P" + temp[-4:]
             ModSetupWorker.clearOld(base,tempP)
-#            tempOP = temp[:-4] + "-OP" + temp[-4:]
-#            ModSetupWorker.clearOld(base,tempOP)
+            tempOP = temp[:-4] + "-OP" + temp[-4:]
+            ModSetupWorker.clearOld(base,tempOP)
             print "Scratch version set up.  Proceding..."
             
             print "GIS operations begins."
-            ModGIS.GISops_1p(inSpace, inGdb, currentIter, fcTAZ, fcDet)
+            ModGIS.GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet)
             print "GIS operations completed."
             
             print "Predicting flow from gravity equation"
-#            ModUpdateFlow.update_2p(inSpace, currentIter, inTTp, OPpenalty)
-            ModUpdateFlow.update(inSpace, currentIter, inTTp)
-            # GIVES TTFLOW-ITER.csv
+            ModUpdateFlow.update_2p(inSpace, currentIter, inTTp, OPpenalty)
+        
             print "Flow Allocation"
-            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+".csv"
-            flow_p = ModAlloc.alloc_2p(inSpace, currentIter, "")
-
-#            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-OP.csv"
-#            flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
-
-            # TODO: Do mix flow loop here
-            # Each iteration of currentIter run couple iteration of DTA
-            dta_1p
-
+            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-P.csv"
+            flow_p = ModAlloc.alloc_2p(inSpace, currentIter, "P")
+    
+            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-OP.csv"
+            flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
+            
             print "Update Speed"
             ModSpeedCalc_avg10.flow2speed_2p(inSpace, currentIter, FL, LIMIT)
             
@@ -183,4 +121,3 @@ if __name__ == '__main__':
 #        Save TT cost calculated from speed0
 #        if currentIter == 1:
 #            shutil.copyfile(inSpace+'CSV/TT.csv', inSpace+'CSV/TT0.csv')
-

@@ -10,8 +10,27 @@ from ModRealSolveExp import NAtoCSV
 import multiprocessing as mp
 
 def solve(inSpace, inGdb, fcTAZ, fcDet, period):
+    '''
+    GIS solving single threaded.
+    
+    Inputs
+    -----
+    inSpace     : str
+                  working directory
+    inGdb       : str
+                  Name of geodatabase
+    fcTAZ       : str
+                  Name of TAZ featureclass
+    fcDet       : str
+                  Name of detector featureclass
+    period      : str
+                  Period. (either P or OP, caps)
+    
+    Outputs
+    -------
+    Cost matrices: TT, TD, DT in DBF format.
+    '''
     try:
-        
         #Set local variables
         inNetworkDataset = "Trans/DriveOnly_ND"
         impedanceAttribute = "Cost"
@@ -22,8 +41,8 @@ def solve(inSpace, inGdb, fcTAZ, fcDet, period):
         outNALayerName = "ODTT"
         inOrigins = "Trans/"+fcTAZ
         inDestinations = "Trans/"+fcTAZ
-        outFile = inSpace+"CSV/TT.csv"
-        outFile = inSpace+"CSV/TT-" + period + ".csv"
+#        outFile = inSpace+"CSV/TT.csv"
+#        outFile = inSpace+"CSV/TT-" + period + ".csv"
         outFile = "TT" + period + ".dbf"
         NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "TT Solved"
@@ -33,8 +52,8 @@ def solve(inSpace, inGdb, fcTAZ, fcDet, period):
         outNALayerName = "ODTD"
         inOrigins = "Trans/"+fcTAZ
         inDestinations = "Trans/"+fcDet
-        outFile = inSpace+"CSV/TD.csv"
-        outFile = inSpace+"CSV/TD-" + period + ".csv"
+#        outFile = inSpace+"CSV/TD.csv"
+#        outFile = inSpace+"CSV/TD-" + period + ".csv"
         outFile = "TD" + period + ".dbf"
         NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "TD Solved"
@@ -44,8 +63,8 @@ def solve(inSpace, inGdb, fcTAZ, fcDet, period):
         outNALayerName = "ODTT"
         inOrigins = "Trans/"+fcDet
         inDestinations = "Trans/"+fcTAZ
-        outFile = inSpace+"CSV/DT.csv"
-        outFile = inSpace+"CSV/DT-" + period + ".csv"
+#        outFile = inSpace+"CSV/DT.csv"
+#        outFile = inSpace+"CSV/DT-" + period + ".csv"
         outFile = "DT" + period + ".dbf"
         NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "DT Solved"
@@ -57,7 +76,7 @@ def solve(inSpace, inGdb, fcTAZ, fcDet, period):
         # If an error occurred, print line number and error message
         import sys
         tb = sys.exc_info()[2]
-        print "An error occurred in ModSolve line %i" % tb.tb_lineno
+        print "An error occurred in ModSolveMP.solve line %i" % tb.tb_lineno
         print str(e)        
 
 
@@ -188,7 +207,7 @@ def solve_2p(inSpace, inGdb, fcTAZ, fcDet, period):
         # If an error occurred, print line number and error message
         import sys
         tb = sys.exc_info()[2]
-        print "An error occurred in ModSolve line %i" % tb.tb_lineno
+        print "An error occurred in ModSolveMP.solve_2p line %i" % tb.tb_lineno
         print str(e)
         pass
     

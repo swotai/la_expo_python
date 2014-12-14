@@ -2,7 +2,10 @@ import arcpy
 from arcpy import env
 arcpy.env.overwriteOutput = True
 
-def NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile, q):
+def NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile):
+    '''
+    Core code that calls arcpy to run the solver.
+    '''    
     try:
         #Check out the Network Analyst extension license
         if arcpy.CheckExtension("Network") == "Available":
@@ -83,7 +86,7 @@ def NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttr
         print "output completed:", inSpace+"CSV/"+outFile
         # Deleteing using del outNALayer is not enough.  Need to delete within arcpy to release
 #        arcpy.Delete_management(outNALayer)
-        q.put(outFile)
+
         return 1
     except Exception as e:
         # If an error occurred, print line number and error message

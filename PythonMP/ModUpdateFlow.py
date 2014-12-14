@@ -52,22 +52,7 @@
 #print a
 
 
-
-def readcsv(infile, indtype, incol, sort, header):
-    # incol must be the same number of item as "indtype"
-    # sort specify as [0] or [0,1] where number is column number
-    # Header either None or True
-    import pandas as pd
-    import numpy as np
-    if header != None:
-        header = 0
-    outFTT = pd.read_csv(infile, header = header)
-    outFTT.columns = [i for i,col in enumerate(outFTT.columns)]
-    outFTT = outFTT.sort(columns=sort)
-    outFTT = np.asarray(outFTT.iloc[:,0:incol].values)
-    outFTT = np.core.records.fromarrays(outFTT.transpose(), dtype = indtype)
-    outFTT = np.asarray(outFTT)
-    return outFTT
+from ModIO import readcsv
 
 
 def update_2p(inSpace, currentIter, inTTp, penalty):

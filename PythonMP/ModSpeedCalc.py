@@ -6,7 +6,7 @@
 
 from ModIO import readcsv
 
-def cong_fdbk(x, FL, LIMIT):
+def congestion_feedback(x, FL, LIMIT):
     from math import exp
     if x > FL:
         return LIMIT * exp(-0.000191*(x-FL))
@@ -23,12 +23,14 @@ def flow2speed(inSpace, inFlow, FL, LIMIT, outCSV, dta):
     inSpace     : str
                   Working path
     inFlow      : str
-                  Name of DETECTOR flow vector, ending in CSV.  Reads inFlow = inSpace+inFlow
+                  Name of DETECTOR flow vector, ending in CSV, 
+                  in program inFlow = inSpace+inFlow
     FL          : value
                   Flow / lane cutoff
     LIMIT       : value
                   Freeflow speed / speed limit (65)
     outCSV      : str
+                  outCSV should be without path in inSpace
                   outCSV = inSpace+outCSV
                   outCSV = inSpace+'detspd-temp.csv'
                   outCSV = inSpace+'detspd'+str(currentIter)+'.csv'
@@ -78,7 +80,7 @@ def flow2speed(inSpace, inFlow, FL, LIMIT, outCSV, dta):
 
         #Convert from GF to the peak time flow F = AF/GF*6%*GF
         thisflow = ratio*.06*cflow['flow']/af['lane']
-        vfeedback = np.vectorize(cong_fdbk, otypes=[np.float])
+        vfeedback = np.vectorize(congestion_feedback, otypes=[np.float])
         yflow = vfeedback(thisflow, FL, LIMIT)
         cflow1 = np.copy(cflow)        
         cflow1['flow'] = yflow
