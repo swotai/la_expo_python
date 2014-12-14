@@ -92,12 +92,6 @@ def flow2speed_2p(inSpace, currentIter, FL, LIMIT):
 			raise Exception("AF and Current detector flow idstn DOES NOT MATCH!")
 		#Calculate AF/GF ratio for center detectors
 		np.seterr(divide = 'ignore')
-#		THIS RATIO IS NOT GOOD: Average take into consider non-central areas
-#		ratio = af['center']*af['flow']/(cff['flow']+0.000001)
-#		Remove inf and nan, calculate mean
-#		ratio = ratio[~np.isnan(ratio)]
-#		ratio = ratio[~np.isinf(ratio)]
-#		ratio = ratio.mean()
 		aft = af['center']*af['flow']
 		aft = aft.sum()
 		cft_p = af['center']*cff_p['flow']

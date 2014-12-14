@@ -215,7 +215,7 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         print "final matrix calculation"
         # Flow = G P^beta1 E^beta2 [Sijp_p x Cpub + Siji_p x Cind + Sijp_op x Cpub + Siji_op x Cind]^tau
         # PEAK FIRST
-        FTT = G * np.array(pop.T * emp) * (sijp_p*ttcostp_p + siji_p*ttcosti_p + sijp_op*ttcostp_op + siji_p*ttcosti_op)**tau
+        FTT = G * np.array(pop.T * emp) * (sijp_p*ttcostp_p + siji_p*ttcosti_p + sijp_op*ttcostp_op + siji_op*ttcosti_op)**tau
         pFTT= FTT * siji_p
         pFTT= pFTT.reshape(1,nTAZ**2)
         outFTT['flow'] = pFTT
