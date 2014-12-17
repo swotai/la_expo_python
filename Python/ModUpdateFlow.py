@@ -160,64 +160,21 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         intcp = intcp*I
         
         print "reshaping..."
-        ttcosti_p = np.reshape(ttdp['cost'],(nTAZ, nTAZ)) + intci
-        ttcosti_op = np.reshape(ttdop['cost'],(nTAZ, nTAZ)) + intci + penalty
-        ttcostp_p = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp
-        ttcostp_op = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp + penalty
+        ttcosti = np.reshape(ttd['cost'],(nTAZ, nTAZ)) + intci
+        ttcostp = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp
         
         
         print "calculate Sij"
-        # New transit share
-        # V is the value function, as opposed to in the two period model where 
-        # we have this c1+c2*deltaC
-        # Vi is value for ind transport, Vp is value for pub transit
-#        eVi_p = np.exp(c1+c2*(ttcostp_p/ttcosti_p))
-#        eVp_p = np.exp(c1+c2*(ttcosti_p/ttcostp_p))
-#        eVi_op = np.exp(c1+c2*(ttcostp_op/ttcosti_op))
-#        eVp_op = np.exp(c1+c2*(ttcosti_op/ttcostp_op))
-        c1 = 0
-        c2 = 1
-        eVi_p = np.exp(c1+c2*(1./ttcosti_p))
-        eVp_p = np.exp(c1+c2*(1./ttcostp_p))
-        eVi_op = np.exp(c1+c2*(1./ttcosti_op))
-        eVp_op = np.exp(c1+c2*(1./ttcostp_op))
-        sumeV = eVi_p + eVp_p + eVi_op + eVp_op
-
-        # STILL NEED TO OUTPUT ALL SHARES
-        siji_p = eVi_p/sumeV
-        siji_op = eVi_op/sumeV
-        sijp_p = eVp_p/sumeV
-        sijp_op = eVp_op/sumeV
-
-        # We don't care about saving the transit shares
-        outSij = siji_p.reshape(nTAZ**2,1)
-        outCSVsij = inSpace+'CSV/Siji_p'+str(currentIter)+'.csv'
+        #New transit share
+        deltaC = ttcostp/ttcosti
+        exx = np.exp(c1+c2*deltaC)
+        sij = exx/(1+exx)
+        outSij = sij.reshape(nTAZ**2,1)
+        outCSVsij = inSpace+'CSV/Sij'+str(currentIter)+'.csv'
         print "Writing transit share to", outCSVsij
         
         with open(outCSVsij, 'wb') as f:
             np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
-
-        outSij = siji_op.reshape(nTAZ**2,1)
-        outCSVsij = inSpace+'CSV/Siji_op'+str(currentIter)+'.csv'
-        print "Writing transit share to", outCSVsij
-        
-        with open(outCSVsij, 'wb') as f:
-            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
-
-        outSij = sijp_p.reshape(nTAZ**2,1)
-        outCSVsij = inSpace+'CSV/Sijp_p'+str(currentIter)+'.csv'
-        print "Writing transit share to", outCSVsij
-        
-        with open(outCSVsij, 'wb') as f:
-            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
-
-        outSij = sijp_op.reshape(nTAZ**2,1)
-        outCSVsij = inSpace+'CSV/Sijp_op'+str(currentIter)+'.csv'
-        print "Writing transit share to", outCSVsij
-        
-        with open(outCSVsij, 'wb') as f:
-            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
-
 
         
         print "population and employment"
@@ -226,30 +183,25 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         pop = np.matrix(pop)
         emp = pe['emp'] ** beta2
         emp = np.matrix(emp)
-        
+
         print "final matrix calculation"
-        # Flow = G P^beta1 E^beta2 [Sijp_p x Cpub + Siji_p x Cind + Sijp_op x Cpub + Siji_op x Cind]^tau
-        # PEAK FIRST
-        FTT = G * np.array(pop.T * emp) * (sijp_p*ttcostp_p + siji_p*ttcosti_p + sijp_op*ttcostp_op + siji_p*ttcosti_op)**tau
-        pFTT= FTT * siji_p
+        FTT = G * np.array(pop.T * emp) * (sij*ttcostp + (1-sij)*ttcosti)**tau
+        pFTT= FTT * (1-sij)
         pFTT= pFTT.reshape(1,nTAZ**2)
-        outFTT['flow'] = pFTT
-        
+
+        # 2 period model treatment (temporary)
+        # Without proper time disaggregated data we won't be able to properly
+        # estimate the Sij across time periods (survey from SCAG might help)
+        # So currently hard code using literature 4.2% (Small 1982)
+        outFTT['flow'] = pFTT*.958    
         outCSV = inSpace+'CSV/TTflow'+str(currentIter)+'-P.csv'
         print "Writing output to", outCSV
-        
         with open(outCSV, 'wb') as f:
             np.savetxt(f, outFTT, delimiter=',', fmt='%7.0f, %7.0f, %7.10f')
 
-        del pFTT
-
-        pFTT= FTT * siji_op
-        pFTT= pFTT.reshape(1,nTAZ**2)
-        outFTT['flow'] = pFTT
-        
+        outFTT['flow'] = pFTT*.042
         outCSV = inSpace+'CSV/TTflow'+str(currentIter)+'-OP.csv'
         print "Writing output to", outCSV
-        
         with open(outCSV, 'wb') as f:
             np.savetxt(f, outFTT, delimiter=',', fmt='%7.0f, %7.0f, %7.10f')
 
@@ -261,6 +213,199 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
     
     #finally:
         #print "Code ends on ", time.strftime("%d/%m/%Y - %H:%M:%S")
+
+
+#def update_2p_backup(inSpace, currentIter, inTTp, penalty):
+#    try:
+#        from math import exp, sqrt, pi
+#        import numpy as np
+#        import sys
+#        
+#        #print "Code starts on ", time.strftime("%d/%m/%Y - %H:%M:%S")
+#        #Parameters
+#        c1 = 5.45
+#        c2 = -5.05
+#        G = exp(-3.289)
+#        beta1 = 0.535
+#        beta2 = 0.589
+#        tau = -2.077
+#        
+#    
+#        #import various matrices
+#        fdtype = [('oid','i8'),('did','i8'),('flow','f8')]
+#        tttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8')]
+#        petype = [('oid','i8'),('emp','f8'),('pop','f8')]
+#        areatype = [('oid','i8'),('area','f8')]
+#        
+#        #import from inFlow
+#        #This is used as OUTPUT TEMPLATE
+#        outFTT = inSpace + "inFlow.csv"
+#        outFTT = readcsv(outFTT, fdtype, incol = 3, sort = [0,1], header = None)
+#        
+#        #TT Cost (pub)
+#        #Post/PRE as SEPARATE CSV FILE
+#        print "importing TTcost for Transit"
+#        ttp = readcsv(inTTp, tttype, incol = 4, sort = [0,1], header = True)
+#        
+#        print "importing TTcost for driving (peak)"
+#        #TT Cost (driving, CURRENT)
+#        inTTdp = inSpace+"CSV/TTP.csv"
+#        ttdp = readcsv(inTTdp, tttype, incol = 4, sort = [0,1], header = None)
+#        inTTdop = inSpace+"CSV/TTOP.csv"
+#        ttdop = readcsv(inTTdop, tttype, incol = 4, sort = [0,1], header = None)
+#        
+#        
+#        #print "check sorting"
+#        #make sure both TT costs are sorted correctly:
+#        #if any(ttp['oid'] != ttd['oid']) or any(ttp['did'] != ttd['did']):
+#        #if any(ttp['oid'] != ttd['oid']) or any(ttp['did'] != ttd['did']):
+#        #    raise Exception('Driving and Transit TT not match!')
+#        #print "sorting is fine"
+#        
+#        print "importing census"
+#        #Population & employment
+#        inPE = inSpace+"census.csv"        
+#        pe = readcsv(inPE, petype, incol = 3, sort = [0], header = True)
+#        
+#        print "importing TAZ area"
+#        inArea = inSpace+"TAZarea.csv"        
+#        area = readcsv(inArea, areatype, incol=2, sort=[0], header = True)
+#        area = area['area']
+#        
+#        print "testing squareness"
+#        #Test square of TTcost and TTcostpub, test same size of pop/emp
+#        ttsize = sqrt(np.size(ttdp))
+#        if ttsize != int(ttsize):
+#            raise Exception('Driving TT cost at peak not square!!!')
+#        ttsize = sqrt(np.size(ttdop))
+#        if ttsize != int(ttsize):
+#            raise Exception('Driving TT cost offpeak not square!!!')
+#        ttsize = sqrt(np.size(ttp))
+#        if ttsize != int(ttsize):
+#            raise Exception('Transit TT cost not square!!!')
+#        pesize = np.size(pe)
+#        if pesize != int(ttsize):
+#            raise Exception('Population/Employment vector not same size as TAZ!!!')
+#        nTAZ = ttsize
+#        print "square is fine, import completed"
+#        
+#        
+#        print "creating internal cost"
+#        #Internal cost: cost of ppl going to work within own TAZ
+##        replace drvcost = 21.46*[(2/3)*(area_dest/_pi)^0.5]/15
+##                    +3.752*[(2/3)*(area_dest/_pi)^0.5]/20 if oID_TAZ12A== dID_TAZ12A
+##                    replace with 1 if lower than 1        
+#        dist = (2./3) * (area/pi)**0.5
+#        intci = 11.5375 * dist / 15 + 0.469 * dist
+#        intcp = 11.5375 * dist / 3
+#        
+#        #make diagonal (Origin = destination)
+#        I = np.identity(nTAZ)
+#        intci = intci*I
+#        intcp = intcp*I
+#        
+#        print "reshaping..."
+#        ttcosti_p = np.reshape(ttdp['cost'],(nTAZ, nTAZ)) + intci
+#        ttcosti_op = np.reshape(ttdop['cost'],(nTAZ, nTAZ)) + intci + penalty
+#        ttcostp_p = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp
+#        ttcostp_op = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp + penalty
+#        
+#        
+#        print "calculate Sij"
+#        # New transit share
+#        # V is the value function, as opposed to in the two period model where 
+#        # we have this c1+c2*deltaC
+#        # Vi is value for ind transport, Vp is value for pub transit
+##        eVi_p = np.exp(c1+c2*(ttcostp_p/ttcosti_p))
+##        eVp_p = np.exp(c1+c2*(ttcosti_p/ttcostp_p))
+##        eVi_op = np.exp(c1+c2*(ttcostp_op/ttcosti_op))
+##        eVp_op = np.exp(c1+c2*(ttcosti_op/ttcostp_op))
+#        c1 = 0
+#        c2 = 1
+#        eVi_p = np.exp(c1+c2*(1./ttcosti_p))
+#        eVp_p = np.exp(c1+c2*(1./ttcostp_p))
+#        eVi_op = np.exp(c1+c2*(1./ttcosti_op))
+#        eVp_op = np.exp(c1+c2*(1./ttcostp_op))
+#        sumeV = eVi_p + eVp_p + eVi_op + eVp_op
+#
+#        # STILL NEED TO OUTPUT ALL SHARES
+#        siji_p = eVi_p/sumeV
+#        siji_op = eVi_op/sumeV
+#        sijp_p = eVp_p/sumeV
+#        sijp_op = eVp_op/sumeV
+#
+#        # We don't care about saving the transit shares
+#        outSij = siji_p.reshape(nTAZ**2,1)
+#        outCSVsij = inSpace+'CSV/Siji_p'+str(currentIter)+'.csv'
+#        print "Writing transit share to", outCSVsij
+#        
+#        with open(outCSVsij, 'wb') as f:
+#            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
+#
+#        outSij = siji_op.reshape(nTAZ**2,1)
+#        outCSVsij = inSpace+'CSV/Siji_op'+str(currentIter)+'.csv'
+#        print "Writing transit share to", outCSVsij
+#        
+#        with open(outCSVsij, 'wb') as f:
+#            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
+#
+#        outSij = sijp_p.reshape(nTAZ**2,1)
+#        outCSVsij = inSpace+'CSV/Sijp_p'+str(currentIter)+'.csv'
+#        print "Writing transit share to", outCSVsij
+#        
+#        with open(outCSVsij, 'wb') as f:
+#            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
+#
+#        outSij = sijp_op.reshape(nTAZ**2,1)
+#        outCSVsij = inSpace+'CSV/Sijp_op'+str(currentIter)+'.csv'
+#        print "Writing transit share to", outCSVsij
+#        
+#        with open(outCSVsij, 'wb') as f:
+#            np.savetxt(f, outSij, delimiter=',', fmt='%7.10f')
+#
+#
+#        
+#        print "population and employment"
+#        #Gravity prediction
+#        pop = pe['pop'] ** beta1
+#        pop = np.matrix(pop)
+#        emp = pe['emp'] ** beta2
+#        emp = np.matrix(emp)
+#        
+#        print "final matrix calculation"
+#        # Flow = G P^beta1 E^beta2 [Sijp_p x Cpub + Siji_p x Cind + Sijp_op x Cpub + Siji_op x Cind]^tau
+#        # PEAK FIRST
+#        FTT = G * np.array(pop.T * emp) * (sijp_p*ttcostp_p + siji_p*ttcosti_p + sijp_op*ttcostp_op + siji_p*ttcosti_op)**tau
+#        pFTT= FTT * siji_p
+#        pFTT= pFTT.reshape(1,nTAZ**2)
+#        outFTT['flow'] = pFTT
+#        
+#        outCSV = inSpace+'CSV/TTflow'+str(currentIter)+'-P.csv'
+#        print "Writing output to", outCSV
+#        
+#        with open(outCSV, 'wb') as f:
+#            np.savetxt(f, outFTT, delimiter=',', fmt='%7.0f, %7.0f, %7.10f')
+#
+#        del pFTT
+#
+#        pFTT= FTT * siji_op
+#        pFTT= pFTT.reshape(1,nTAZ**2)
+#        outFTT['flow'] = pFTT
+#        
+#        outCSV = inSpace+'CSV/TTflow'+str(currentIter)+'-OP.csv'
+#        print "Writing output to", outCSV
+#        
+#        with open(outCSV, 'wb') as f:
+#            np.savetxt(f, outFTT, delimiter=',', fmt='%7.0f, %7.0f, %7.10f')
+#
+#
+#    except Exception as e:
+#        tb = sys.exc_info()[2]
+#        print "Error occurred in ModUpdateFlow %i" % tb.tb_lineno 
+#        print e
+#    
+#    #finally:
+#        #print "Code ends on ", time.strftime("%d/%m/%Y - %H:%M:%S")
 
 
 #def update(inSpace, currentIter, inTTp):

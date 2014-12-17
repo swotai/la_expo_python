@@ -28,7 +28,6 @@ if __name__ == '__main__':
 #    oID_TAZ12A,dID_TAZ12A,post_triptime,postcost
 #    20211000,20211000,0,0
 #    20211000,20212000,89.348434,19.777
-#    20211000,20213000,135.59612,26.074003
     inTTp = inSpace+"TTpubPre.csv" 
     #inTTp = inSpace+"TTpubPost.csv"
 
