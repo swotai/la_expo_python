@@ -195,7 +195,6 @@ def flow2speed_2p(inSpace, currentIter, FL, LIMIT):
         with open(outCSV, 'wb') as f:
             f.write(b'id_stn,speed\n')
             np.savetxt(f, cff_op, delimiter=',', fmt='%7.0f, %7.10f')
-
                 
     except Exception as e:
         tb = sys.exc_info()[2]
@@ -341,12 +340,12 @@ def flow2speed_2p_old(inSpace, currentIter, FL, LIMIT):
         cff_op.dtype = ([('idstn', '<i8'), ('speed', '<f8')])
 
         #SAVE THE SUPPLY SIDE SPEED
-        outCSV = inSpace+'detspdSY'+str(currentIter-1)+'-P.csv'
+        outCSV = inSpace+'detspdSY'+str(currentIter)+'-P.csv'
         print "speed updated.  Writing to", outCSV
         with open(outCSV, 'wb') as f:
             f.write(b'id_stn,speed\n')
             np.savetxt(f, cff_p, delimiter=',', fmt='%7.0f, %7.10f')
-        outCSV = inSpace+'detspdSY'+str(currentIter-1)+'-OP.csv'
+        outCSV = inSpace+'detspdSY'+str(currentIter)+'-OP.csv'
         print "speed updated.  Writing to", outCSV
         with open(outCSV, 'wb') as f:
             f.write(b'id_stn,speed\n')

@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # NOTE: MAKE SURE inSpace folder HAS ending slash "/"
     base = "DriveOnly_LA.gdb"
     temp = "LA-scratch.gdb"
-    inSpace = "C:/Users/Dennis/Desktop/DATA/"
+    inSpace = "C:/Users/Dennis/Desktop/DATA2/"
 #    inSpace = "E:/DATA_testMP/"
     inGdb = temp
     #inSpeed = "spdtest.csv"
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # i.e. with the speed outputed, the code can start from there.
     # Change the currentIter to the max number of detspd +1
     startIter = 1
-    maxIter = 10
+    maxIter = 1
     
     # Off peak commuting penalty
     OPpenalty = 48.4575
@@ -103,7 +103,7 @@ if __name__ == '__main__':
             flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
             
             print "Update Speed"
-            ModSpeedCalc_avg10.flow2speed_2p(inSpace, currentIter, FL, LIMIT)
+            ModSpeedCalc_avg10.flow2speed_2p_old(inSpace, currentIter, FL, LIMIT)
             
             print "Iteration", currentIter, "done on ", time.strftime("%d/%m/%Y - %H:%M:%S")
             currentIter += 1

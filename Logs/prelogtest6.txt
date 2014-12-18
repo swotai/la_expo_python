@@ -1,0 +1,9 @@
+Iteration 1 starts on  17/12/2014 - 09:36:18
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.

@@ -106,8 +106,8 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         #TT Cost (driving, CURRENT)
         inTTdp = inSpace+"CSV/TTP.csv"
         ttdp = readcsv(inTTdp, tttype, incol = 4, sort = [0,1], header = None)
-#        inTTdop = inSpace+"CSV/TTOP.csv"
-#        ttdop = readcsv(inTTdop, tttype, incol = 4, sort = [0,1], header = None)
+        inTTdop = inSpace+"CSV/TTOP.csv"
+        ttdop = readcsv(inTTdop, tttype, incol = 4, sort = [0,1], header = None)
         
         
         #print "check sorting"
@@ -132,9 +132,9 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         ttsize = sqrt(np.size(ttdp))
         if ttsize != int(ttsize):
             raise Exception('Driving TT cost at peak not square!!!')
-#        ttsize = sqrt(np.size(ttdop))
-#        if ttsize != int(ttsize):
-#            raise Exception('Driving TT cost offpeak not square!!!')
+        ttsize = sqrt(np.size(ttdop))
+        if ttsize != int(ttsize):
+            raise Exception('Driving TT cost offpeak not square!!!')
         ttsize = sqrt(np.size(ttp))
         if ttsize != int(ttsize):
             raise Exception('Transit TT cost not square!!!')
@@ -160,13 +160,14 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         intcp = intcp*I
         
         print "reshaping..."
-        ttcosti = np.reshape(ttd['cost'],(nTAZ, nTAZ)) + intci
-        ttcostp = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp
-        
+        ttcosti_p = np.reshape(ttdp['cost'],(nTAZ, nTAZ)) + intci
+#        ttcosti_op = np.reshape(ttdop['cost'],(nTAZ, nTAZ)) + intci + penalty
+        ttcostp_p = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp
+#        ttcostp_op = np.reshape(ttp['cost'],(nTAZ, nTAZ)) + intcp + penalty        
         
         print "calculate Sij"
         #New transit share
-        deltaC = ttcostp/ttcosti
+        deltaC = ttcostp_p/ttcosti_p
         exx = np.exp(c1+c2*deltaC)
         sij = exx/(1+exx)
         outSij = sij.reshape(nTAZ**2,1)
@@ -185,7 +186,7 @@ def update_2p(inSpace, currentIter, inTTp, penalty):
         emp = np.matrix(emp)
 
         print "final matrix calculation"
-        FTT = G * np.array(pop.T * emp) * (sij*ttcostp + (1-sij)*ttcosti)**tau
+        FTT = G * np.array(pop.T * emp) * (sij*ttcostp_p + (1-sij)*ttcosti_p)**tau
         pFTT= FTT * (1-sij)
         pFTT= pFTT.reshape(1,nTAZ**2)
         outFTT['flow'] = pFTT*.958    
