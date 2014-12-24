@@ -7,7 +7,6 @@ Created on Tue Nov 18 19:47:08 2014
 import multiprocessing as mp
 import ModJoinSpeed, ModBuild, ModSolveMP, time
 from ModSetupWorker import setup_3workers, del_3workers, dbf2CSV
-import sys
 
       
         
@@ -32,6 +31,7 @@ def GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet):
     -------
     Cost matrices: TT, TD, DT
     '''
+    import sys
     try:
     #    print "Starting GIS process", mp.current_process().name, "on", time.strftime("%d/%m/%Y - %H:%M:%S")
         # SETUP JOBS
@@ -88,7 +88,7 @@ def GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet):
         dbf2CSV(inSpace+"CSV/DTOP.dbf")
         sys.stdout.flush()
 
-        return 1
+        return 0
     except Exception as e:
         # If an error occurred, print line number and error message
         import sys

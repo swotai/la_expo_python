@@ -1,0 +1,46 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 4482-DBD2
+
+ Directory of C:\Users\Dennis\Documents\Python Scripts\la_expo_python\PythonMP
+
+12/19/2014  09:24 AM    <DIR>          .
+12/19/2014  09:24 AM    <DIR>          ..
+12/03/2014  11:13 AM               658 LogPre.txt
+11/06/2014  08:06 AM             4,353 MAIN_2period.py
+12/19/2014  09:21 AM             4,421 MAIN_2period_MP.py
+12/19/2014  09:21 AM             2,121 MAIN_2period_MP.pyc
+12/17/2014  11:25 PM             4,428 MAIN_2period_MP_old.py
+12/17/2014  09:07 PM             2,124 MAIN_2period_MP_old.pyc
+11/18/2014  08:11 PM             6,541 MAIN_MP.py
+11/19/2014  05:42 PM            13,716 ModAlloc.py
+11/19/2014  05:48 PM             9,366 ModAlloc.pyc
+11/19/2014  09:47 PM             3,735 ModBisec.py
+11/06/2014  09:51 PM             1,592 ModBuild.py
+11/19/2014  12:36 AM             1,149 ModBuild.pyc
+12/13/2014  02:07 PM             9,159 ModGIS.py
+12/13/2014  02:19 PM             5,240 ModGIS.pyc
+11/18/2014  10:57 PM               914 ModIO.py
+11/19/2014  12:36 AM             1,144 ModIO.pyc
+11/06/2014  09:51 PM             3,442 ModJoinSpeed.py
+11/19/2014  12:36 AM             2,217 ModJoinSpeed.pyc
+12/13/2014  04:36 PM             8,783 ModRealSolveExp.py
+12/13/2014  04:38 PM             3,982 ModRealSolveExp.pyc
+11/07/2014  07:15 AM             4,643 ModSetupWorker.py
+11/19/2014  12:36 AM             3,576 ModSetupWorker.pyc
+12/13/2014  04:31 PM             8,890 ModSolveMP.py
+12/13/2014  04:38 PM             4,609 ModSolveMP.pyc
+12/13/2014  02:39 PM             3,959 ModSpeedCalc.py
+12/06/2014  11:43 PM             3,584 ModSpeedCalc.pyc
+12/19/2014  08:44 AM            27,339 ModSpeedCalc_avg10.py
+12/19/2014  09:21 AM             8,827 ModSpeedCalc_avg10.pyc
+12/17/2014  11:39 AM            25,221 ModUpdateFlow.py
+12/17/2014  11:40 AM             7,381 ModUpdateFlow.pyc
+12/19/2014  08:13 AM             5,422 Plot.py
+11/06/2014  08:51 PM               323 RegisterGAC.txt
+11/23/2014  11:12 AM            10,019 TestDTA.py
+11/23/2014  11:13 AM             7,625 TestDTA.pyc
+12/06/2014  11:36 PM            10,407 TestDTAMP.py
+12/07/2014  12:00 AM             7,835 TestDTAMP.pyc
+12/19/2014  09:23 AM            56,832 wtee.exe
+              37 File(s)        285,577 bytes
+               2 Dir(s)  205,434,589,184 bytes free

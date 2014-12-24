@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # NOTE: MAKE SURE inSpace folder HAS ending slash "/"
     base = "DriveOnly_LA.gdb"
     temp = "LA-scratch.gdb"
-    inSpace = "C:/Users/Dennis/Desktop/DATA/"
+    inSpace = "C:/Users/Dennis/Desktop/DATA3/"
 #    inSpace = "E:/DATA_testMP/"
     inGdb = temp
     #inSpeed = "spdtest.csv"
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # i.e. with the speed outputed, the code can start from there.
     # Change the currentIter to the max number of detspd +1
     startIter = 1
-    maxIter = 10
+    maxIter = 20
     
     # Off peak commuting penalty
     OPpenalty = 48.4575
@@ -76,46 +76,38 @@ if __name__ == '__main__':
     
     ssdPath = {}
     currentIter = startIter
-    try:
-        while currentIter < (maxIter + startIter):
-            print "Iteration", currentIter, "starts on ", time.strftime("%d/%m/%Y - %H:%M:%S")
-            print inTTp, ", at", inSpace
-            # 0, create temp scratch
-            print "Setting up scratch version"
-            tempP = temp[:-4] + "-P" + temp[-4:]
-            ModSetupWorker.clearOld(base,tempP)
-            tempOP = temp[:-4] + "-OP" + temp[-4:]
-            ModSetupWorker.clearOld(base,tempOP)
-            print "Scratch version set up.  Proceding..."
-            
-            print "GIS operations begins."
-            ModGIS.GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet)
-            print "GIS operations completed."
-            
-            print "Predicting flow from gravity equation"
-            ModUpdateFlow.update_2p(inSpace, currentIter, inTTp, OPpenalty)
+    while currentIter < (maxIter + startIter):
+        print "Iteration", currentIter, "starts on ", time.strftime("%d/%m/%Y - %H:%M:%S")
+        print inTTp, ", at", inSpace
+        # 0, create temp scratch
+        print "Setting up scratch version"
+        tempP = temp[:-4] + "-P" + temp[-4:]
+        ModSetupWorker.clearOld(base,tempP)
+        tempOP = temp[:-4] + "-OP" + temp[-4:]
+        ModSetupWorker.clearOld(base,tempOP)
+        print "Scratch version set up.  Proceding..."
         
-            print "Flow Allocation"
-            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-P.csv"
-            flow_p = ModAlloc.alloc_2p(inSpace, currentIter, "P")
+        print "GIS operations begins."
+        ModGIS.GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet)
+        print "GIS operations completed."
+        
+        print "Predicting flow from gravity equation"
+        ModUpdateFlow.update_2p(inSpace, currentIter, inTTp, OPpenalty)
     
-            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-OP.csv"
-            flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
-            
-            print "Update Speed"
-            ModSpeedCalc_avg10.flow2speed_2p(inSpace, currentIter, FL, LIMIT)
-            
-            print "Iteration", currentIter, "done on ", time.strftime("%d/%m/%Y - %H:%M:%S")
-            currentIter += 1
-        
-        print maxIter, "EVERYTHING COMPLETED on", time.strftime("%d/%m/%Y - %H:%M:%S")
+        print "Flow Allocation"
+        inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-P.csv"
+        flow_p = ModAlloc.alloc_2p(inSpace, currentIter, "P")
 
-    except Exception as e:
-        # If an error occurred, print line number and error message
-        import sys
-        tb = sys.exc_info()[2]
-        print "An error occurred in MAIN_2period_MP line %i" % tb.tb_lineno
-        print str(e)
+        inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-OP.csv"
+        flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
+        
+        print "Update Speed"
+        ModSpeedCalc_avg10.flow2speed_2p_old(inSpace, currentIter, FL, LIMIT)
+        
+        print "Iteration", currentIter, "done on ", time.strftime("%d/%m/%Y - %H:%M:%S")
+        currentIter += 1
+    
+    print maxIter, "EVERYTHING COMPLETED on", time.strftime("%d/%m/%Y - %H:%M:%S")
 
 #        Save TT cost calculated from speed0
 #        if currentIter == 1:

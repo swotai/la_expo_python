@@ -41,36 +41,65 @@ def solve(inSpace, inGdb, fcTAZ, fcDet, period):
         outNALayerName = "ODTT"
         inOrigins = "Trans/"+fcTAZ
         inDestinations = "Trans/"+fcTAZ
-#        outFile = inSpace+"CSV/TT.csv"
-#        outFile = inSpace+"CSV/TT-" + period + ".csv"
         outFile = "TT" + period + ".dbf"
         NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "TT Solved"
-                
+        ttpath = inSpace+"CSV/"+outFile
+        
         
         #TD COST CALCULATION STARTs HERE
         outNALayerName = "ODTD"
         inOrigins = "Trans/"+fcTAZ
         inDestinations = "Trans/"+fcDet
-#        outFile = inSpace+"CSV/TD.csv"
-#        outFile = inSpace+"CSV/TD-" + period + ".csv"
         outFile = "TD" + period + ".dbf"
         NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "TD Solved"
-        
+        tdpath = inSpace+"CSV/"+outFile
+
 
         #DT COST CALCULATION STARTS HERE
         outNALayerName = "ODTT"
         inOrigins = "Trans/"+fcDet
         inDestinations = "Trans/"+fcTAZ
-#        outFile = inSpace+"CSV/DT.csv"
-#        outFile = inSpace+"CSV/DT-" + period + ".csv"
         outFile = "DT" + period + ".dbf"
         NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "DT Solved"
-        
-        print "\n\n Solve: CHECK GDB LOCK NOW!!!"
-        
+        dtpath = inSpace+"CSV/"+outFile
+
+        import os,sys
+        allclear = 0
+        while allclear < 3:
+            allclear = 3
+            if (not os.path.exists(ttpath)) or os.path.getsize(ttpath) < 600e6:
+                #kill prev job
+                print ttpath, "size:", os.path.getsize(ttpath)
+                print "TT matrix error: recompute"
+                outNALayerName = "ODTT"
+                inOrigins = "Trans/"+fcTAZ
+                inDestinations = "Trans/"+fcTAZ
+                outFile = "TT" + period + ".dbf"
+                NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+                allclear -=1
+            if (not os.path.exists(tdpath)) or os.path.getsize(tdpath) < 600e6:
+                #kill prev job
+                print tdpath, "size:", os.path.getsize(tdpath)
+                print "TD matrix error: recompute"
+                outNALayerName = "ODTD"
+                inOrigins = "Trans/"+fcTAZ
+                inDestinations = "Trans/"+fcDet
+                outFile = "TD" + period + ".dbf"
+                NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+                allclear -=1
+            if (not os.path.exists(dtpath)) or os.path.getsize(dtpath) < 600e6:
+                #kill prev job
+                print "DT matrix error: recompute"
+                outNALayerName = "ODTD"
+                inOrigins = "Trans/"+fcTAZ
+                inDestinations = "Trans/"+fcDet
+                outFile = "TD" + period + ".dbf"
+                NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+                allclear -=1
+        sys.stdout.flush()
         
     except Exception as e:
         # If an error occurred, print line number and error message

@@ -159,8 +159,8 @@ if __name__ == '__main__':
             inFlow = inSpace+"CSV/TTflow"+str(currentIter)+".csv"
             flow_p = ModAlloc.alloc_2p(inSpace, currentIter, "")
 
-#            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-OP.csv"
-#            flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
+            inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-OP.csv"
+            flow_op = ModAlloc.alloc_2p(inSpace, currentIter, "OP")        
 
             # TODO: Do mix flow loop here
             # Each iteration of currentIter run couple iteration of DTA

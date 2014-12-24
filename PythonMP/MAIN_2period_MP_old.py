@@ -83,17 +83,17 @@ if __name__ == '__main__':
             # 0, create temp scratch
             print "Setting up scratch version"
             tempP = temp[:-4] + "-P" + temp[-4:]
-            ModSetupWorker.clearOld(base,tempP)
+#            ModSetupWorker.clearOld(base,tempP)
             tempOP = temp[:-4] + "-OP" + temp[-4:]
-            ModSetupWorker.clearOld(base,tempOP)
+#            ModSetupWorker.clearOld(base,tempOP)
             print "Scratch version set up.  Proceding..."
             
             print "GIS operations begins."
-            ModGIS.GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet)
+#            ModGIS.GISops_2p(inSpace, inGdb, currentIter, fcTAZ, fcDet)
             print "GIS operations completed."
             
             print "Predicting flow from gravity equation"
-            ModUpdateFlow.update_2p(inSpace, currentIter, inTTp, OPpenalty)
+#            ModUpdateFlow.update_2p(inSpace, currentIter, inTTp, OPpenalty)
         
             print "Flow Allocation"
             inFlow = inSpace+"CSV/TTflow"+str(currentIter)+"-P.csv"

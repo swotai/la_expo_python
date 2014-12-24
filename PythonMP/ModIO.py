@@ -18,7 +18,7 @@ def readcsv(infile, indtype, incol, sort, header):
     Header   : Required
                either None or True
     '''
-    
+    import sys
     import pandas as pd
     import numpy as np
     if header != None:
@@ -29,4 +29,5 @@ def readcsv(infile, indtype, incol, sort, header):
     outFTT = np.asarray(outFTT.iloc[:,0:incol].values)
     outFTT = np.core.records.fromarrays(outFTT.transpose(), dtype = indtype)
     outFTT = np.asarray(outFTT)
+    sys.stdout.flush()
     return outFTT

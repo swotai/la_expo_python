@@ -1,0 +1,203 @@
+Iteration 17 starts on  19/12/2014 - 02:02:06
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+An error occurred in ModGIS.GISops_2p line 89
+local variable 'sys' referenced before assignment
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (peak)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij17.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow17-P.csv
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow17-OP.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1716
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+Update Speed
+[ 0.11111111  0.125       0.14285714  0.16666667  0.2         0.25
+  0.33333333  0.5         1.        ]
+prior: [ 8  9 10 11 12 13 14 15 16]
+a[ 0 ] = C:/Users/Dennis/Desktop/DATA/detspdSY8-P.csv
+a[ 1 ] = C:/Users/Dennis/Desktop/DATA/detspdSY9-P.csv
+a[ 2 ] = C:/Users/Dennis/Desktop/DATA/detspdSY10-P.csv
+a[ 3 ] = C:/Users/Dennis/Desktop/DATA/detspdSY11-P.csv
+a[ 4 ] = C:/Users/Dennis/Desktop/DATA/detspdSY12-P.csv
+a[ 5 ] = C:/Users/Dennis/Desktop/DATA/detspdSY13-P.csv
+a[ 6 ] = C:/Users/Dennis/Desktop/DATA/detspdSY14-P.csv
+a[ 7 ] = C:/Users/Dennis/Desktop/DATA/detspdSY15-P.csv
+a[ 8 ] = C:/Users/Dennis/Desktop/DATA/detspdSY16-P.csv
+prior: [ 8  9 10 11 12 13 14 15 16]
+a[ 0 ] = C:/Users/Dennis/Desktop/DATA/detspdSY8-OP.csv
+a[ 1 ] = C:/Users/Dennis/Desktop/DATA/detspdSY9-OP.csv
+a[ 2 ] = C:/Users/Dennis/Desktop/DATA/detspdSY10-OP.csv
+a[ 3 ] = C:/Users/Dennis/Desktop/DATA/detspdSY11-OP.csv
+a[ 4 ] = C:/Users/Dennis/Desktop/DATA/detspdSY12-OP.csv
+a[ 5 ] = C:/Users/Dennis/Desktop/DATA/detspdSY13-OP.csv
+a[ 6 ] = C:/Users/Dennis/Desktop/DATA/detspdSY14-OP.csv
+a[ 7 ] = C:/Users/Dennis/Desktop/DATA/detspdSY15-OP.csv
+a[ 8 ] = C:/Users/Dennis/Desktop/DATA/detspdSY16-OP.csv
+AF/GF Ratio: 29.2716497167
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspdSY17-P.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspdSY17-OP.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd17-P.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd17-OP.csv
+Iteration 17 done on  19/12/2014 - 03:53:09
+Iteration 18 starts on  19/12/2014 - 03:53:09
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+An error occurred in ModGIS.GISops_2p line 89
+local variable 'sys' referenced before assignment
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (peak)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij18.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow18-P.csv
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow18-OP.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1693
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+Update Speed
+[ 0.11111111  0.125       0.14285714  0.16666667  0.2         0.25
+  0.33333333  0.5         1.        ]
+prior: [ 9 10 11 12 13 14 15 16 17]
+a[ 0 ] = C:/Users/Dennis/Desktop/DATA/detspdSY9-P.csv
+a[ 1 ] = C:/Users/Dennis/Desktop/DATA/detspdSY10-P.csv
+a[ 2 ] = C:/Users/Dennis/Desktop/DATA/detspdSY11-P.csv
+a[ 3 ] = C:/Users/Dennis/Desktop/DATA/detspdSY12-P.csv
+a[ 4 ] = C:/Users/Dennis/Desktop/DATA/detspdSY13-P.csv
+a[ 5 ] = C:/Users/Dennis/Desktop/DATA/detspdSY14-P.csv
+a[ 6 ] = C:/Users/Dennis/Desktop/DATA/detspdSY15-P.csv
+a[ 7 ] = C:/Users/Dennis/Desktop/DATA/detspdSY16-P.csv
+a[ 8 ] = C:/Users/Dennis/Desktop/DATA/detspdSY17-P.csv
+prior: [ 9 10 11 12 13 14 15 16 17]
+a[ 0 ] = C:/Users/Dennis/Desktop/DATA/detspdSY9-OP.csv
+a[ 1 ] = C:/Users/Dennis/Desktop/DATA/detspdSY10-OP.csv
+a[ 2 ] = C:/Users/Dennis/Desktop/DATA/detspdSY11-OP.csv
+a[ 3 ] = C:/Users/Dennis/Desktop/DATA/detspdSY12-OP.csv
+a[ 4 ] = C:/Users/Dennis/Desktop/DATA/detspdSY13-OP.csv
+a[ 5 ] = C:/Users/Dennis/Desktop/DATA/detspdSY14-OP.csv
+a[ 6 ] = C:/Users/Dennis/Desktop/DATA/detspdSY15-OP.csv
+a[ 7 ] = C:/Users/Dennis/Desktop/DATA/detspdSY16-OP.csv
+a[ 8 ] = C:/Users/Dennis/Desktop/DATA/detspdSY17-OP.csv
+AF/GF Ratio: 30.1254128688
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspdSY18-P.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspdSY18-OP.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd18-P.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd18-OP.csv
+Iteration 18 done on  19/12/2014 - 05:44:54
+Iteration 19 starts on  19/12/2014 - 05:44:54
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA/
+Setting up scratch version
+Scratch file removed.
+Copied new temp
+Scratch file removed.
+Copied new temp
+Scratch version set up.  Proceding...
+GIS operations begins.
+An error occurred in ModGIS.GISops_2p line 89
+local variable 'sys' referenced before assignment
+GIS operations completed.
+Predicting flow from gravity equation
+importing TTcost for Transit
+importing TTcost for driving (peak)
+importing census
+importing TAZ area
+testing squareness
+square is fine, import completed
+creating internal cost
+reshaping...
+calculate Sij
+Writing transit share to C:/Users/Dennis/Desktop/DATA/CSV/Sij19.csv
+population and employment
+final matrix calculation
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow19-P.csv
+Writing output to C:/Users/Dennis/Desktop/DATA/CSV/TTflow19-OP.csv
+Flow Allocation
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1695
+importing various matrices
+import completed
+reshaping...
+begin flow allocation
+Number of detectors with match: 1741
+Update Speed
+[ 0.11111111  0.125       0.14285714  0.16666667  0.2         0.25
+  0.33333333  0.5         1.        ]
+prior: [10 11 12 13 14 15 16 17 18]
+a[ 0 ] = C:/Users/Dennis/Desktop/DATA/detspdSY10-P.csv
+a[ 1 ] = C:/Users/Dennis/Desktop/DATA/detspdSY11-P.csv
+a[ 2 ] = C:/Users/Dennis/Desktop/DATA/detspdSY12-P.csv
+a[ 3 ] = C:/Users/Dennis/Desktop/DATA/detspdSY13-P.csv
+a[ 4 ] = C:/Users/Dennis/Desktop/DATA/detspdSY14-P.csv
+a[ 5 ] = C:/Users/Dennis/Desktop/DATA/detspdSY15-P.csv
+a[ 6 ] = C:/Users/Dennis/Desktop/DATA/detspdSY16-P.csv
+a[ 7 ] = C:/Users/Dennis/Desktop/DATA/detspdSY17-P.csv
+a[ 8 ] = C:/Users/Dennis/Desktop/DATA/detspdSY18-P.csv
+prior: [10 11 12 13 14 15 16 17 18]
+a[ 0 ] = C:/Users/Dennis/Desktop/DATA/detspdSY10-OP.csv
+a[ 1 ] = C:/Users/Dennis/Desktop/DATA/detspdSY11-OP.csv
+a[ 2 ] = C:/Users/Dennis/Desktop/DATA/detspdSY12-OP.csv
+a[ 3 ] = C:/Users/Dennis/Desktop/DATA/detspdSY13-OP.csv
+a[ 4 ] = C:/Users/Dennis/Desktop/DATA/detspdSY14-OP.csv
+a[ 5 ] = C:/Users/Dennis/Desktop/DATA/detspdSY15-OP.csv
+a[ 6 ] = C:/Users/Dennis/Desktop/DATA/detspdSY16-OP.csv
+a[ 7 ] = C:/Users/Dennis/Desktop/DATA/detspdSY17-OP.csv
+a[ 8 ] = C:/Users/Dennis/Desktop/DATA/detspdSY18-OP.csv
+AF/GF Ratio: 29.2195485649
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspdSY19-P.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspdSY19-OP.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd19-P.csv
+speed updated.  Writing to C:/Users/Dennis/Desktop/DATA/detspd19-OP.csv
+Iteration 19 done on  19/12/2014 - 07:35:31
+Iteration 20 starts on  19/12/2014 - 07:35:31
+C:/Users/Dennis/Desktop/DATA/TTpubPre.csv , at C:/Us

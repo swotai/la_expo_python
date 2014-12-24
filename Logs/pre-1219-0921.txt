@@ -1,0 +1,4 @@
+Iteration 1 starts on  19/12/2014 - 09:21:27
+C:/Users/Dennis/Desktop/DATA2/TTpubPre.csv , at C:/Users/Dennis/Desktop/DATA2/
+Setting up scratch version
+Scratch file removed.

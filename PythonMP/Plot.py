@@ -12,13 +12,14 @@ import numpy as np
 from operator import itemgetter
 
 
-maxiter = 20
+maxiter = 13
 
 
 #Convert from GF to the peak time flow F (F = GF x 2 x 6%)
 
-inSpace = "C:/Users/Dennis/Desktop/Results/Pre TT with transpose/"
-inSpace = "E:/DATA_Pre_fix1028/"
+inSpace = "C:/Users/Dennis/Desktop/Results/Pre_1028/"
+#inSpace = "E:/DATA_Pre_fix1028/"
+inSpace = "C:/Users/Dennis/Desktop/DATA3/"
 
 
 ssdPath = list()
@@ -26,16 +27,22 @@ plotssd = list()
 plotssddd = list()
 plotffd = list()
 
-i = 0
+period = "P"
+i = 1
 while i < maxiter:
 	fdtype = ([('idstn', '<i8'), ('speed', '<f8')])
 	#Read Supply SPEED
-	inPS = inSpace + "detspdSY" + str(i) +".csv"
+	inPS = inSpace + "detspdSY" + str(i) +"-" + period + ".csv"
+	inPS = inSpace + "detspd" + str(i-1) +"-" + period + ".csv"
+
+#	inPS = inSpace + "detspdSY" + str(i) +".csv"
+#	inPS = inSpace + "detspd" + str(i-1) +".csv"
 	ps = np.genfromtxt(inPS, dtype = fdtype, delimiter = ",", skip_header = 1)
 	ps = np.asarray(sorted(ps, key=itemgetter(0)), dtype = fdtype)
 	
 	#Read demand speed
-	inCS = inSpace + "detspd" + str(i) +".csv"
+	inCS = inSpace + "detspd" + str(i) +"-" + period + ".csv"
+#	inCS = inSpace + "detspd" + str(i) +".csv"
 	cs = np.genfromtxt(inCS, dtype = fdtype, delimiter = ",", skip_header = 1)
 	cs = np.asarray(sorted(cs, key=itemgetter(0)), dtype = fdtype)
 	
@@ -56,7 +63,8 @@ while i < maxiter:
 	af = np.asarray(sorted(af, key=itemgetter(0)), dtype = fdtype)
 	
 	#Current flow
-	inFlow = inSpace+"CSV/detflow"+str(i+1)+".csv"
+	inFlow = inSpace+"CSV/detflow"+str(i+1)+"-" + period + ".csv"
+#	inFlow = inSpace+"CSV/detflow"+str(i+1)+".csv"
 	fdtype = [('idstn','i8'),('flow','f8')]
 	cff = np.genfromtxt(inFlow, dtype = fdtype, delimiter = ",", skip_header = 0)
 	cff = np.asarray(sorted(cff, key=itemgetter(0)), dtype = fdtype)
@@ -90,7 +98,7 @@ with open(outCSV, 'wb') as f:
 from pylab import *
 #Box Graph
 figure()
-title('Evolution path of Sy and Dd speed difference')
+title('Evolution path of Dd speed differences between iterations')
 xlabel('Iterations')
 ylabel('Difference (mph)')
 notes = "Note: Box represent interquartile range, red line represent median," + \
@@ -103,7 +111,7 @@ savefig(inSpace+'FIGS/dPath.pdf', bbox_inches='tight')
 
 #Box Graph Zoomed in
 figure()
-title('Evolution path of Sy and Dd speed diff\n(Last five iterations)')
+title('Evolution path of speed diff\n(Last five iterations)')
 xlabel('Iterations')
 ylabel('Difference (mph)')
 notes = "Note: Box represent interquartile range, red line represent median," + \
@@ -117,7 +125,7 @@ savefig(inSpace+'FIGS/dPath-last5.pdf', bbox_inches='tight')
 
 # Two subplots, unpack the axes array immediately
 f, (ax1, ax2) = plt.subplots(1, 2)
-suptitle('Sum Squared Error path',size='large')
+suptitle('Sum Squared Error path\nDifference between iterations',size='large')
 ax1.plot(ssdPath['sum'])
 ax2.plot(ssdPath['sum'][-20:])
 xlabel('Iterations')
@@ -146,15 +154,15 @@ savefig(inSpace+'FIGS/detChange.pdf', bbox_inches='tight')
 
 
 #FLOW DIFFERENCE (STILL VERY BAD)
-figure()
-title('Evolution path of predicted\nand actual flow difference')
-xlabel('Iterations')
-ylabel('Difference (# cars)')
-notes = "Note: Box represent interquartile range, red line represent median," + \
-		"\nand small crosses represent outlyers."
-plt.annotate(notes, (0,0), (0, -40), xycoords='axes fraction', textcoords='offset points', va='top',size='small')
-boxplot(plotffd)
-show()
+#figure()
+#title('Evolution path of predicted\nand actual flow difference')
+#xlabel('Iterations')
+#ylabel('Difference (# cars)')
+#notes = "Note: Box represent interquartile range, red line represent median," + \
+#		"\nand small crosses represent outlyers."
+#plt.annotate(notes, (0,0), (0, -40), xycoords='axes fraction', textcoords='offset points', va='top',size='small')
+#boxplot(plotffd)
+#show()
 
 
 
