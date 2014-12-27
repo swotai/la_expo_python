@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     #ACTUAL COMPUTATION START HERE
     # Import necessary modules
-    import ModSetupWorker, ModJoinSpeed, ModBuild, ModSolve, ModAlloc, ModSpeedCalc_avg10, ModUpdateFlow
+    import ModSetupWorker, ModBuild, ModSolve, ModAlloc
     import time
     
     currentIter = 1
@@ -83,9 +83,10 @@ if __name__ == '__main__':
     # Specify the transit gdb
     base = "DriveOnly_LA.gdb"
     temp = "LA-scratch.gdb"
-    #inSpace = "C:/Users/Dennis/Desktop/DATA1/"
-    inSpace = "E:/DATA_Post_fix1028/"
     inGdb = temp
+    base = inSpace+base
+    temp = inSpace+temp
+
 
     # 0, create temp scratch
     print "Setting up scratch version"
@@ -116,9 +117,9 @@ if __name__ == '__main__':
     # Specify the transit gdb
     base = "DriveOnly_LA.gdb"
     temp = "LA-scratch.gdb"
-    #inSpace = "C:/Users/Dennis/Desktop/DATA1/"
-    inSpace = "E:/DATA_Post_fix1028/"
     inGdb = temp
+    base = inSpace+base
+    temp = inSpace+temp
 
     # 0, create temp scratch
     print "Setting up scratch version"
