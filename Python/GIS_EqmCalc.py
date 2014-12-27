@@ -32,12 +32,7 @@ if __name__ == '__main__':
 #    oID_TAZ12A,dID_TAZ12A,post_triptime,postcost
 #    20211000,20211000,0,0
 #    20211000,20212000,89.348434,19.777
-    inTTp = inSpace+"TTpubPre.csv" 
-    inTTp = inSpace+"TTpubPost.csv"
-
     
-    base = inSpace+base
-    temp = inSpace+temp
     
     ##TAZs:
     ##    TAZ_LA_proj_centroid  >---< inFlow.csv
@@ -82,7 +77,11 @@ if __name__ == '__main__':
     print "Pre expo equilibrium calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
     inSpace = "C:/Users/Dennis/Desktop/Pre/"
     inTTp = inSpace+"TTpubPre.csv" 
-    inSpeed = "pre_eqm_speed-2130.csv"
+    inSpeed = "detspd" + str(currentIter - 1) + ".csv"
+    base = "DriveOnly_LA.gdb"
+    temp = "LA-scratch.gdb"
+    base = inSpace+base
+    temp = inSpace+temp
     print inTTp, ", at", inSpace, "using speed vector", inSpeed
 
     # 0, create temp scratch
@@ -103,7 +102,7 @@ if __name__ == '__main__':
     ModSolve.solve(inSpace, inGdb, fcTAZ, fcDet)
 
     print "Predicting flow from gravity equation"
-    ModUpdateFlow.update(inSpace, currentIter, inTTp)
+    ModUpdateFlow.updatewithtransit(inSpace, currentIter, inTTp)
 
     print "Flow Allocation"
     inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
@@ -116,12 +115,15 @@ if __name__ == '__main__':
 
 
 
-
     # Post equilibrium calculation
     print "Post expo equilibrium calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
     inSpace = "C:/Users/Dennis/Desktop/Post/"
     inTTp = inSpace+"TTpubPost.csv"
-    inSpeed = "pre_eqm_speed-2130.csv"
+    inSpeed = "detspd" + str(currentIter - 1) + ".csv"
+    base = "DriveOnly_LA.gdb"
+    temp = "LA-scratch.gdb"
+    base = inSpace+base
+    temp = inSpace+temp
     print inTTp, ", at", inSpace, "using speed vector", inSpeed
 
     # 0, create temp scratch
@@ -142,7 +144,7 @@ if __name__ == '__main__':
     ModSolve.solve(inSpace, inGdb, fcTAZ, fcDet)
 
     print "Predicting flow from gravity equation"
-    ModUpdateFlow.update(inSpace, currentIter, inTTp)
+    ModUpdateFlow.updatewithtransit(inSpace, currentIter, inTTp)
 
     print "Flow Allocation"
     inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
