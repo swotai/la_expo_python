@@ -6,7 +6,7 @@
 #        - Name of output csv
 
 
-from ModRealSolve import NAtoCSV
+from ModRealSolve import NAtoCSV, NAtoCSV_trans
 import time
 
 
@@ -57,24 +57,32 @@ def solve(inSpace, inGdb, fcTAZ, fcDet):
         print str(e)
 
 
-def solvetrans(inSpace, inGdb, fcTAZ, fcDet):
+def solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet):
     '''
     Solves TD and DT, given fcTAZ and fcDet
     '''
     try:
 
         #Set local variables
-        inNetworkDataset = "Trans/DriveOnly_ND"
+        inNetworkDataset = "Trans/"+inNetwork
         impedanceAttribute = "Cost"
         accumulateAttributeName = "#"
         #accumulateAttributeName = ['Length', 'dps']
+
+        #TT COST CALCULATION STARTS HERE
+        outNALayerName = "ODTT"
+        inOrigins = "Trans/"+fcTAZ
+        inDestinations = "Trans/"+fcTAZ
+        outFile = inSpace+"CSV/TT.csv"
+        NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+        print "TT Solved"
 
         #TD COST CALCULATION STARTs HERE
         outNALayerName = "ODTD"
         inOrigins = "Trans/"+fcTAZ
         inDestinations = "Trans/"+fcDet
         outFile = inSpace+"CSV/TD.csv"
-        NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+        NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "TD Solved"
 
 
@@ -83,7 +91,7 @@ def solvetrans(inSpace, inGdb, fcTAZ, fcDet):
         inOrigins = "Trans/"+fcDet
         inDestinations = "Trans/"+fcTAZ
         outFile = inSpace+"CSV/DT.csv"
-        NAtoCSV(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+        NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
         print "DT Solved"
 
         print "\n\n Solve: CHECK GDB LOCK NOW!!!"

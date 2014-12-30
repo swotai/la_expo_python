@@ -88,32 +88,32 @@ if __name__ == '__main__':
     temp = inSpace+temp
     inNetwork = "PreBusDPS_ND"
 
-
+	
     # 0, create temp scratch
     print "Setting up scratch version"
-    ModSetupWorker.clearOld(base,temp)
+    #ModSetupWorker.clearOld(base,temp)
     print "Scratch version set up.  Proceding..."
 
     # 2, rebuild network dataset
     print "Speed updated. Rebuild Dataset..."
-    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
+    #ModBuild.buildTrans(inSpace, inNetwork, inGdb)
     
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
-    ModSolve.solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
+    #ModSolve.solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
 
     print "Flow Allocation"
     inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
-    flow = ModAlloc.alloc(inSpace, inFlow, currentIter)
+    #flow = ModAlloc.alloc(inSpace, inFlow, currentIter)
 
     print "Pre transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
-
+	
 
 
 
 #    # Post equilibrium calculation
     print "Post transit calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
-    inSpace = "C:/Users/Dennis/Desktop/TransitPost/"
+    inSpace = "C:/Users/Dennis/Desktop/TransitPost1/"
 
     # Specify the transit gdb
     base = "LA_MetroPostBus-DPS.gdb"
