@@ -91,20 +91,20 @@ if __name__ == '__main__':
 
     # 0, create temp scratch
     print "Setting up scratch version"
-    ModSetupWorker.clearOld(base,temp)
+#    ModSetupWorker.clearOld(base,temp)
     print "Scratch version set up.  Proceding..."
 
     # 2, rebuild network dataset
     print "Speed updated. Rebuild Dataset..."
-    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
+#    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
     
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
-    ModSolve.solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
+#    ModSolve.solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
 
     print "Flow Allocation"
-    inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
-    flow = ModAlloc.alloc(inSpace, inFlow, currentIter)
+    inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
+    flow = ModAlloc.alloc_trans(inSpace, inFlow, currentIter)
 
     print "Pre transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
 
@@ -125,20 +125,20 @@ if __name__ == '__main__':
     
     # 0, create temp scratch
     print "Setting up scratch version"
-    ModSetupWorker.clearOld(base,temp)
+#    ModSetupWorker.clearOld(base,temp)
     print "Scratch version set up.  Proceding..."
 
     # 2, rebuild network dataset
     print "Speed updated. Rebuild Dataset..."
-    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
+#    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
     
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
-    ModSolve.solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
+#    ModSolve.solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
 
     print "Flow Allocation"
-    inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
-    flow = ModAlloc.alloc(inSpace, inFlow, currentIter)
+    inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
+    flow = ModAlloc.alloc_trans(inSpace, inFlow, currentIter)
 
     print "Post transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
 

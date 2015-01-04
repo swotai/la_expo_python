@@ -343,7 +343,7 @@ def alloc_trans(inSpace, inFlow, currentIter):
             totalflow = flow.sum()
             #print "Current iteration:", i
             if totalflow > 0:
-            #    print "flow:", totalflow
+                print "flow:", totalflow
                 count +=1
             
             #Record flow in dictionary
@@ -369,7 +369,7 @@ def alloc_trans(inSpace, inFlow, currentIter):
 if __name__ == "__main__":
     from math import sqrt
     import numpy as np
-    inSpace = "C:\Users\Dennis\Desktop\TransitPre/"
+    inSpace = "C:\Users\Dennis\Desktop\TransitPost/"
     currentIter = 1
     inTT = inSpace+"CSV/TT.csv"
     inTD = inSpace+"CSV/TD.csv"
@@ -391,16 +391,12 @@ if __name__ == "__main__":
     print "importing various matrices"
     #Read TAZ-TAZ flow
     ff = readcsv(inFlow, fdtype, incol = 3, sort = [0,1], header = None)
-    print "TT done"
     #Read TD cost
     td = readcsv(inTD, datatype, incol = 4, sort = [1,0], header = None)
-    print "TD done"
     #Read DT cost
     dt = readcsv(inDT, datatype, incol = 4, sort = [0,1], header = None)
-    print "DT done"
     #Read TT cost
-    tt = readcsv(inTT, datatype, incol = 4, sort = [0,1], header = True)
-    print "TT cost done"
+    tt = readcsv(inTT, datatype, incol = 4, sort = [0,1], header = None)
     
     nTAZ = int(sqrt(tt.size))
     if nTAZ != sqrt(tt.size):
@@ -448,6 +444,7 @@ if __name__ == "__main__":
         if totalflow > 0:
         #    print "flow:", totalflow
             count +=1
+#            print "number of flow", totalflow
         
         #Record flow in dictionary
         detFlow[det] = totalflow
