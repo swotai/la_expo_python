@@ -4,10 +4,11 @@ Created on Tue Dec 23 21:38:08 2014
 
 @author: Dennis
 # Purpose: Run modules to do the following:
-# 3, Calculate cost (TD + DT)
+# 3, Calculate cost (TD + DT) (or used TDDT from 1/7/15(pre 6am, post6pm))
 # 4, Compute station level flow
 
-# For Equilibrium calculation
+# For Allocating flow to Transit stations.
+# RUN Results\DO_FILES\A1-GenTTflow_for_alloc.do to generate the necessary TTflow
 
 """
 from ModIO import readcsv
@@ -31,7 +32,8 @@ def alloc_trans(inSpace, inFlow, currentIter):
 
     #fields = ["OriginID", "DestinationID", "Name", "Total_Cost"]
     #fields = ["OriginID", "DestinationID", "Name", "Total_Cost", 'Total_Length', 'Total_lenmetro', 'Total_lenbus', 'Total_lenwalk', 'Total_lblue', 'Total_lred', 'Total_lgreen', 'Total_lgold', 'Total_lexpo']
-    datatype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8'),('length','f8'),('metro','f8'),('bus','f8'),('walk','f8'),('blue','f8'),('green','f8'),('red','f8'),('gold','f8'),('expo','f8')]
+    dttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8')]
+    tttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8'),('length','f8'),('dps','f8'),('metro','f8'),('bus','f8'),('walk','f8'),('blue','f8'),('green','f8'),('red','f8'),('gold','f8'),('expo','f8')]
     #fdtype = [('oid','i8'),('did','i8'),('preflow','f8'),('postflow','f8')]
     fdtype = [('oid','i8'),('did','i8'),('postflow','f8')]
     
@@ -40,13 +42,13 @@ def alloc_trans(inSpace, inFlow, currentIter):
     ff = readcsv(inFlow, fdtype, incol = 3, sort = [0,1], header = None)
 
     #Read TD cost
-    td = readcsv(inTD, datatype, incol = 13, sort = [1,0], header = None)
+    td = readcsv(inTD, dttype, incol = 4, sort = [1,0], header = None)
 
     #Read DT cost
-    dt = readcsv(inDT, datatype, incol = 13, sort = [0,1], header = None)
+    dt = readcsv(inDT, dttype, incol = 4, sort = [0,1], header = None)
 
     #Read TT cost
-    tt = readcsv(inTT, datatype, incol = 13, sort = [0,1], header = None)
+    tt = readcsv(inTT, tttype, incol = 14, sort = [0,1], header = None)
 
     nTAZ = int(sqrt(tt.size))
     if nTAZ != sqrt(tt.size):
@@ -95,7 +97,7 @@ def alloc_trans(inSpace, inFlow, currentIter):
         totalflow = flow.sum()
         #print "Current iteration:", i
         if totalflow > 0:
-            print "flow:", totalflow
+            print "stn", i, "flow:", totalflow
             count +=1
         
         #Record flow in dictionary
@@ -144,8 +146,6 @@ if __name__ == '__main__':
     ##    hd_ML_snap (1800)
     ##Stations:
     ##    ??? (20?)
-    fcTAZ = "TAZ_LA_proj_centroid"
-    fcDet = "AllStations"
     #inFLOW = PREDICTED FLOW FROM GRAVITY (STATIC, OBSELETE), not to confused with AF (Actual Flow)
     #inFLOW.csv at inSpace is used for Pre flow as starting point for iteration.
 #    inFlow = inSpace + "inFlow.csv"
@@ -177,8 +177,8 @@ if __name__ == '__main__':
     
     currentIter = 1
     
-    # Pre equilibrium calculation
-    print "Pre transit calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    # Pre allocation
+    print "Pre transit ALLOCATION starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
     inSpace = "C:/Users/Dennis/Desktop/TransitPre/"
     # Specify the transit gdb
     base = "LA_MetroPreBus-DPS.gdb"
@@ -188,15 +188,44 @@ if __name__ == '__main__':
     temp = inSpace+temp
     inNetwork = "PreBusDPS_ND"
 
-	
+    print "Flow Allocation"
+    inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
+    flow = alloc_trans(inSpace, inFlow, currentIter)
+
+    print "Pre transit Allocation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
+
+    # Post allocation
+    print "Post transit ALLOCATION starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    inSpace = "C:/Users/Dennis/Desktop/TransitPost/"
+    # Specify the transit gdb
+    base = "LA_MetroPreBus-DPS.gdb"
+    temp = "LA-scratch.gdb"
+    inGdb = temp
+    base = inSpace+base
+    temp = inSpace+temp
+    inNetwork = "PostBusDPS_ND"
 
     print "Flow Allocation"
     inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
     flow = alloc_trans(inSpace, inFlow, currentIter)
 
-    print "Pre transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
-	
+    print "Post transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
 
 
+    # Post allocation Counterfactual
+    print "Post transit ALLOCATION starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    inSpace = "C:/Users/Dennis/Desktop/TransitPost_Fast/"
+    # Specify the transit gdb
+    base = "LA_MetroPreBus-DPS.gdb"
+    temp = "LA-scratch.gdb"
+    inGdb = temp
+    base = inSpace+base
+    temp = inSpace+temp
+    inNetwork = "PostBusDPS_ND"
 
+    print "Flow Allocation"
+    inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
+    flow = alloc_trans(inSpace, inFlow, currentIter)
+
+    print "Post transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
 

@@ -2,7 +2,7 @@
 # Base on AddFieldFromJoin.py
 # Description: Adds a field to a table, and calculates its values based
 #              on the values in a field from a joined table
-
+# 11.5375 or 15 or 23.075
 
 def joinSpeed(inSpace, inGdb, inSpeed):
 	try:
@@ -29,7 +29,7 @@ def joinSpeed(inSpace, inGdb, inSpeed):
 		if inSpd is None:
 			return oldCost
 		else:
-			newCost = (11.5375 * dist / inSpd + 0.469 * dist)
+			newCost = (15 * dist / inSpd + 0.469 * dist)
 			return newCost"""
 
 		fc = inSpace + inGdb

@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 23 21:38:08 2014
+Created on Thu Mar 19 14:56:46 2015
 
 @author: Dennis
+
 # Purpose: Run modules to do the following:
 # 3, Calculate cost (TD + DT)
 # 4, Compute station level flow
 
 # For Equilibrium calculation
+# and Allocating flow to Transit stations.
+# Functions are defined in section 1, and actual main code in section 2.
 """
+
+
+# Section 1: This section is for defining functions.
 
 def NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile, outField):
     '''
@@ -26,7 +32,6 @@ def NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumula
             # Raise a custom exception
             print "Network license unavailable, make sure you have network analyst extension installed."
 
-
         #Check out the Network Analyst extension license
         arcpy.CheckOutExtension("Network")
 
@@ -39,7 +44,6 @@ def NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumula
                                                     impedanceAttribute, "#", "#",
                                                     accumulateAttributeName,
                                                     "ALLOW_UTURNS","#","NO_HIERARCHY","#","NO_LINES","#")
-
         
         #Get the layer object from the result object. The OD cost matrix layer can 
         #now be referenced using the layer object.
@@ -84,16 +88,13 @@ def NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumula
             arcpy.AddLocations_na(outNALayer, destinationsLayerName, inDestinations,
                                   destField, sort_field = destSort, append = "CLEAR", search_criteria = searchTAZ)    
             print "loaded stations onto network"
-
         
         #Solve the OD cost matrix layer
         print "Begin Solving"
         arcpy.na.Solve(outNALayer)
         print "Done Solving"
         
-        
         # Extract lines layer, export to CSV
-        # SOMEHOW THIS WORKS, SO LETS KEEP IT THAT WAY
         for lyr in arcpy.mapping.ListLayers(outNALayer):
             if lyr.name == linesLayerName:
                 with open(outFile, 'w') as f:
@@ -113,20 +114,18 @@ def NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumula
         print "An error occurred in NAtoCSV_Trans line %i" % tb.tb_lineno
         print str(e)        
 
-
     finally:
         #Check the network analyst extension license back in, regardless of errors.
         arcpy.CheckInExtension("Network")
 
 def solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet):
-
     '''
     Solves TD and DT, given fcTAZ and fcDet
     '''
     #Set local variables
     inNetworkDataset = "Trans/"+inNetwork
     impedanceAttribute = "Cost"
-#    accumulateAttributedt = "#"
+    # accumulateAttributedt = "#" << Use this if no need to accumulate
     accumulateAttributeTT = ['Length', 'Cost', 'DPS', 'lenmetro', 'lenbus', 'lenwalk', 'lblue', 'lred', 'lgreen', 'lgold', 'lexpo', 'lorange', 'lsilver']
     FieldsTT = ["OriginID", "DestinationID", "Name", "Total_Cost", 'Total_Length', 'Total_DPS', 'Total_lenmetro', 'Total_lenbus', 'Total_lenwalk', 'Total_lblue', 'Total_lred', 'Total_lgreen', 'Total_lgold', 'Total_lexpo']
     accumulateAttributeDT = "#"
@@ -148,7 +147,6 @@ def solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet):
     NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeDT, inOrigins, inDestinations, outNALayerName, outFile, FieldsDT)
     print "TD Solved"
 
-
     #DT COST CALCULATION STARTS HERE
     outNALayerName = "ODDT"
     inOrigins = "Trans/"+fcDet
@@ -156,116 +154,136 @@ def solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet):
     outFile = inSpace+"CSV/DT.csv"
     NAtoCSV_trans(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeDT, inOrigins, inDestinations, outNALayerName, outFile, FieldsDT)
     print "DT Solved"
+     
 
-    print "\n\n Solve: CHECK GDB LOCK NOW!!!"
+def alloc_trans(inSpace, inFlow, currentIter):
+    '''
+    Base on alloc(), but changed the hard coded items for transit matrices
+    '''
+    import numpy as np
+    from ModIO import readcsv
+    from math import sqrt
+
+    inTT = inSpace+"CSV/TT.csv"
+    inTD = inSpace+"CSV/TD.csv"
+    inDT = inSpace+"CSV/DT.csv"
+    outCSV = inSpace+'CSV/Transdetflow'+str(currentIter)+'.csv'
+
+    #Test: 50 TAZs, 1813 DET
+    #Full: 2241 TAZs, 1813 DETs
+    nTAZ = 50
+    nDET = 1813
+
+    dttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8')]
+    tttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8'),('length','f8'),('dps','f8'),('metro','f8'),('bus','f8'),('walk','f8'),('blue','f8'),('green','f8'),('red','f8'),('gold','f8'),('expo','f8')]
+    fdtype = [('oid','i8'),('did','i8'),('postflow','f8')]
+    
+    print "importing various matrices"
+    #Read TAZ-TAZ flow
+    ff = readcsv(inFlow, fdtype, incol = 3, sort = [0,1], header = None)
+
+    #Read TD cost
+    td = readcsv(inTD, dttype, incol = 4, sort = [1,0], header = None)
+
+    #Read DT cost
+    dt = readcsv(inDT, dttype, incol = 4, sort = [0,1], header = None)
+
+    #Read TT cost
+    tt = readcsv(inTT, tttype, incol = 14, sort = [0,1], header = None)
+
+    nTAZ = int(sqrt(tt.size))
+    if nTAZ != sqrt(tt.size):
+        print "ERROR: TAZ SIZE NOT SQUARE!"
+    if dt.size != td.size:
+        print "ERROR: TD and DT SIZE NOT MATCH!"
+    nDET = dt.size/nTAZ
+    print "import completed, TAZ:", nTAZ, "DET:", nDET
+
+    print "reshaping..."
+    ctd = np.reshape(td['cost'],(nDET, nTAZ))
+    cdt = np.reshape(dt['cost'],(nDET, nTAZ))
+    ndt = np.reshape(dt['name'],(nDET, nTAZ))
+    ctt = np.reshape(tt['cost'],(nTAZ, nTAZ))
+    ftt = np.reshape(ff['postflow'],(nTAZ, nTAZ))
+
+    # FLOW MATRIX
+    print "begin flow allocation"
+    x3 = np.matrix(ctt)
+    i = 0
+    count = 0
+    detFlow = {999999: 0}
+    while i < nDET:
+        #Extract current detector id_stn
+        det = ndt[i,1][0:6]
+
+        # Extract cost vectors
+        x1 = np.matrix(ctd[i])
+        x1 = x1.T
+        x2 = np.matrix(cdt[i])
+
+        tddt=x1+x2
+
+        #Precise matching
+        isflow = x3 == tddt
+
+        #Element multiply by flow
+        flow = np.multiply(isflow, ftt)
+        totalflow = np.nansum(flow)
+        #print "Current iteration:", i
+        if totalflow > 0:
+            print "stn", i, "flow:", totalflow
+            count +=1
         
-# Name: GIS_Iteration
+        #Record flow in dictionary
+        detFlow[det] = totalflow
+        i+=1
+
+    del detFlow[999999]
+    print "Number of detectors with match:", count
+
+    dtype = [('idstn','i8'),('flow','f8')]
+    detFlow= np.array(detFlow.items(), dtype=dtype)
+
+    np.savetxt(outCSV, detFlow, delimiter=',', fmt='%7.0f, %7.10f')
+    
+    return detFlow
 
 
+
+# Section 2: This section is actual code
 if __name__ == '__main__':
-    # Parameter settings (mostly paths):
-    # NOTE: MAKE SURE inSpace folder HAS ending slash "/"
-    base = "DriveOnly_LA.gdb"
-    temp = "LA-scratch.gdb"
-    #inSpace = "C:/Users/Dennis/Desktop/DATA1/"
-    inGdb = temp
-    #inSpeed = "spdtest.csv"
-#    SET whether use transit Pre or Post cost
-#    Make sure csvs have correct format.
-#    oID_TAZ12A,dID_TAZ12A,post_triptime,postcost
-#    20211000,20211000,0,0
-#    20211000,20212000,89.348434,19.777
-
-    
-    ##TAZs:
-    ##    TAZ_LA_proj_centroid  >---< inFlow.csv
-    ##    TAZ_LA_TESTSAMPLE (50)  >---< inFlow50.csv
-    ##Detectors:
-    ##    hd_ML_snap (1800)
-    ##Stations:
-    ##    ??? (20?)
-    fcTAZ = "TAZ_LA_proj_centroid"
-    fcDet = "AllStationsML"
-    #inFLOW = PREDICTED FLOW FROM GRAVITY (STATIC, OBSELETE), not to confused with AF (Actual Flow)
-    #inFLOW.csv at inSpace is used for Pre flow as starting point for iteration.
-#    inFlow = inSpace + "inFlow.csv"
-    
-    
-        
-    #For Allocation
-    #weight is how much weight to put into new speed
-    #FL should be 500, however because small TAZ number
-    #in test sample, threshold changed to 1 to test equation.
-    LIMIT = 65
-    weight = 0.5
-    FL = 500
-    
-    # Iteration ending thresholds:
-    threshIT = 0.00001
-    threshDS = 1
-    
-    # The way this is coded, if an iteraction is completed
-    # i.e. with the speed outputed, the code can start from there.
-    # Change the currentIter to the max number of detspd +1
-    
-
-    #ACTUAL COMPUTATION START HERE
-    # Import necessary modules
     import ModSetupWorker, ModBuild
     import time
-    
     currentIter = 1
+    fcTAZ = "TAZ_LA_proj_centroid"
+    fcDet = "AllStationsML"
+
+    # VOT
+    vot = 15
+
+#   Specify two paths: 
+#       1) path to driving TT cost and driving total TT flow    
+#       2) path to transit network dataset
+    drvpath = 'C:/Users/Dennis/Desktop/Pre/'
+    transitpath = 'C:/Users/Dennis/Desktop/CalcTransit/CF-fast/'
+    inSpace = transitpath
     
-    # Pre equilibrium calculation
-    print "Pre transit calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
-    inSpace = "C:/Users/Dennis/Desktop/TransitPre/"
-
-    # Specify the transit gdb
-    base = "LA_MetroPreBus-DPS.gdb"
-    temp = "LA-scratch.gdb"
-    inGdb = temp
-    base = inSpace+base
-    temp = inSpace+temp
-    inNetwork = "PreBusDPS_ND"
-
-
-    # 0, create temp scratch
-    print "Setting up scratch version"
-#    ModSetupWorker.clearOld(base,temp)
-    print "Scratch version set up.  Proceding..."
-
-    # 2, rebuild network dataset
-    print "Speed updated. Rebuild Dataset..."
-#    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
-    
-    # 3, solve network
-    print "Dataset rebuilt. Solve for TT, TD, DT"
-#    solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
-
-    print "Flow Allocation"
-    inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
-#    flow = ModAlloc.alloc_trans(inSpace, inFlow, currentIter)
-#    USE GIS_AllocTransitFlow.py to calculate transit flow!!!
-
-    print "Pre transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
-
-
-
-#    # Post equilibrium calculation
-    print "Post transit calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
-    inSpace = "C:/Users/Dennis/Desktop/TransitPost/"
-#    Counterfactual: Expo is faster to 34mph (2x speed ~ green line)
-    inSpace = "C:/Users/Dennis/Desktop/TransitPost_Fast/"
-    
-
-    # Specify the transit gdb
+#   This adds a prefix to the variables output to the transit matrix.
+#   e.g. predps, postdps  Should be 'post' unless it's 'pre'.
+    varprefix = 'post'
     base = "LA_MetroPostBus-DPS.gdb"
     temp = "LA-scratch.gdb"
+    inNetwork = "PostBusDPS_ND"
+
+     
+### Cost matrix calculation
+    print "Transit cost matrix calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    print "Using transit dataset at:", transitpath
+    # Specify the transit gdb
     inGdb = temp
     base = inSpace+base
     temp = inSpace+temp
-    inNetwork = "PostBusDPS_ND"
-    
+
     # 0, create temp scratch
     print "Setting up scratch version"
     ModSetupWorker.clearOld(base,temp)
@@ -278,12 +296,76 @@ if __name__ == '__main__':
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
     solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
+    print "Transit cost matrix calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
+   
+    
+### Generate OD level transit flow
+    import pandas as pd
+    import numpy as np
+    import time
+    
+    print "Flow-gen starts: ", time.strftime("%d/%m/%Y - %H:%M:%S")
+    # Paths
+    fTT = drvpath+'CSV/TT.csv'
+    fTotalTTflow = drvpath+'CSV/TotalTTflow1.csv'
+    fTransitPre = transitpath+'CSV/TT.csv'
+    
+    # TT cost matrix column names
+    TransTTlabel = ['v1', 'v2', 'v3', 'cost', 'length', 'dps', 'metrol', 'busl', 'walkl', 'lblue', 'lred', 'lgreen', 'lgold', 'lexpo']
+    
+    # Read Driving TT cost matrix
+    TT = pd.read_csv(fTT, header=None)
+    TT.columns = ['v1','v2','v3','predrvcost','predrvlen','predrvdps']   # Rename columns
+    odNames = pd.DataFrame(TT['v3'].str.split(' - ').tolist(), columns=['oid','did'])
+    odNames = odNames.convert_objects(convert_numeric=True)
+    TT['oid'] = odNames['oid']
+    TT['did'] = odNames['did']
+    del TT['v1'], TT['v2'], TT['v3']                       # delete v1, v2 columns
+    
+    # Read Total Flow Matrix
+    TotalTTflow = pd.read_csv(fTotalTTflow, header=None)
+    TotalTTflow.columns = ['oid', 'did', 'totalflow']   # Rename columns
+    
+    # Read Transit TT cost matrix
+    TransitPre = pd.read_csv(fTransitPre, header=None)
+    TransitPre.columns = [TransTTlabel]   # Rename columns
+    odNames = pd.DataFrame(TransitPre['v3'].str.split(' - ').tolist(), columns=['oid','did'])   # substring the v3 into oid and did strs
+    odNames = odNames.convert_objects(convert_numeric=True)   # destring, replace
+    TransitPre['oid'] = odNames['oid']
+    TransitPre['did'] = odNames['did']
+    TransitPre['fare'] = 1.25*(TransitPre['busl']+TransitPre['metrol']>0)   # Generate fare
+    TransitPre['cost'] = TransitPre['dps']*vot + TransitPre['fare']         # Update cost
+    TransitPre = TransitPre[['oid','did','dps','fare','cost','busl','metrol','walkl','length']]   # keep relavent variables
+    colname = TransitPre.columns.values   
+    colname = [varprefix+name for name in colname]   # Rename variables
+    colname[0:2] = ['oid','did']
+    TransitPre.columns = colname
+    
+    # The Big Merge
+    Dataset=pd.merge(TT, TotalTTflow,       left_on=['oid', 'did'], right_on=['oid', 'did'], how='inner')
+    Dataset=pd.merge(Dataset, TransitPre,   left_on=['oid', 'did'], right_on=['oid', 'did'], how='inner')
+    
+    # Generate new Sij, flow
+    Dataset['costdiff'] = 5.45-5.05*(Dataset[varprefix+'cost']/Dataset['predrvcost'])
+    Dataset['Sij']  = np.exp(Dataset['costdiff']) /(1 + np.exp(Dataset['costdiff']))
+    Dataset['dflow']  = Dataset['totalflow'] * (1-Dataset['Sij'])
+    Dataset['tflow']  = Dataset['totalflow'] * (Dataset['Sij'])
+    
+    # Save the flow into TransTTflow1.csv in corresponding folder.
+    tflowpre = Dataset[['oid','did','tflow']]
+    tflowpre.to_csv(transitpath+'CSV/TransTTflow1.csv', header=None, index = None)
+    
+    # Write out the calculated matrix into DTA for table generation
+    Dataset.to_stata(transitpath+'TransitMatrix.dta')
+    print "Flow-gen finishes: ", time.strftime("%d/%m/%Y - %H:%M:%S")
+    del Dataset, TransitPre
 
+### Allocate flow
+    # Pre allocation
+    print "Transit flow ALLOCATION starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
     print "Flow Allocation"
     inFlow = inSpace + "CSV/TransTTflow" + str(currentIter) + ".csv"
-#    flow = ModAlloc.alloc_trans(inSpace, inFlow, currentIter)
-#    USE GIS_AllocTransitFlow.py to calculate transit flow!!!
-
-    print "Post transit calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
-
-
+    flow = alloc_trans(inSpace, inFlow, currentIter)
+    
+    print "Transit flow allocation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    

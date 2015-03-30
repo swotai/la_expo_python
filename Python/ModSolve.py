@@ -6,9 +6,55 @@
 #        - Name of output csv
 
 
-from ModRealSolve import NAtoCSV, NAtoCSV_trans
+from ModRealSolve import NAtoCSV, NAtoCSVAccu, NAtoCSV_trans
 import time
 
+
+def solveAccu(inSpace, inGdb, fcTAZ, fcDet):
+    '''
+    Solves TT, TD and DT, given fcTAZ and fcDet
+    '''
+    try:
+
+        #Set local variables
+        inNetworkDataset = "Trans/DriveOnly_ND"
+        impedanceAttribute = "Cost"
+        #accumulateAttributeName = "#"
+        accumulateAttributeName = ['Length', 'dps']
+
+        #TT COST CALCULATION STARTS HERE
+        outNALayerName = "ODTT"
+        inOrigins = "Trans/"+fcTAZ
+        inDestinations = "Trans/"+fcTAZ
+        outFile = inSpace+"CSV/TT.csv"
+        NAtoCSVAccu(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+        print "TT Solved"
+
+
+        #TD COST CALCULATION STARTs HERE
+        outNALayerName = "ODTD"
+        inOrigins = "Trans/"+fcTAZ
+        inDestinations = "Trans/"+fcDet
+        outFile = inSpace+"CSV/TD.csv"
+        NAtoCSVAccu(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+        print "TD Solved"
+
+
+        #DT COST CALCULATION STARTS HERE
+        outNALayerName = "ODTT"
+        inOrigins = "Trans/"+fcDet
+        inDestinations = "Trans/"+fcTAZ
+        outFile = inSpace+"CSV/DT.csv"
+        NAtoCSVAccu(inSpace, inGdb, inNetworkDataset, impedanceAttribute, accumulateAttributeName, inOrigins, inDestinations, outNALayerName, outFile)
+        print "DT Solved"
+        print "\n\n Solve: CHECK GDB LOCK NOW!!!"
+
+    except Exception as e:
+        # If an error occurred, print line number and error message
+        import sys
+        tb = sys.exc_info()[2]
+        print "An error occurred in ModSolve.sole line %i" % tb.tb_lineno
+        print str(e)
 
 def solve(inSpace, inGdb, fcTAZ, fcDet):
     '''
@@ -19,8 +65,8 @@ def solve(inSpace, inGdb, fcTAZ, fcDet):
         #Set local variables
         inNetworkDataset = "Trans/DriveOnly_ND"
         impedanceAttribute = "Cost"
-        accumulateAttributeName = "#"
-        #accumulateAttributeName = ['Length', 'dps']
+        #accumulateAttributeName = "#"
+        accumulateAttributeName = ['Length', 'dps']
 
         #TT COST CALCULATION STARTS HERE
         outNALayerName = "ODTT"

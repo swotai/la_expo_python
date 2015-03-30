@@ -16,7 +16,9 @@ Created on Tue Dec 23 21:38:08 2014
 # For Equilibrium calculation
 
 """
-
+# This VOT is for the update functions.  changed from 11.5375 to 15 (1/26/15)
+# REMEMBER to also change the ModJoinSpeed function
+vot = 15
 
 
 def update_step1(inSpace, currentIter, inTTp):
@@ -98,8 +100,8 @@ def update_step1(inSpace, currentIter, inTTp):
 #                    +3.752*[(2/3)*(area_dest/_pi)^0.5]/20 if oID_TAZ12A== dID_TAZ12A
 #                    replace with 1 if lower than 1        
     dist = (2./3) * (area/pi)**0.5
-    intci = 11.5375 * dist / 15 + 0.469 * dist
-    intcp = 11.5375 * dist / 3
+    intci = vot * dist / 15 + 0.469 * dist
+    intcp = vot * dist / 3
     
     #make diagonal (Origin = destination)
     I = np.identity(nTAZ)
@@ -240,8 +242,8 @@ def update_step2(inSpace, currentIter, inTTp, inFlow):
 #                    +3.752*[(2/3)*(area_dest/_pi)^0.5]/20 if oID_TAZ12A== dID_TAZ12A
 #                    replace with 1 if lower than 1        
     dist = (2./3) * (area/pi)**0.5
-    intci = 11.5375 * dist / 15 + 0.469 * dist
-    intcp = 11.5375 * dist / 3
+    intci = vot * dist / 15 + 0.469 * dist
+    intcp = vot * dist / 3
     
     #make diagonal (Origin = destination)
     I = np.identity(nTAZ)
@@ -337,7 +339,7 @@ if __name__ == '__main__':
 
     #ACTUAL COMPUTATION START HERE
     # Import necessary modules
-    import ModAlloc, ModSpeedCalc_avg10
+    import ModSetupWorker, ModJoinSpeed, ModBuild, ModSolve, ModAlloc, ModSpeedCalc_avg10
     import time
     
     currentIter = 1
@@ -355,20 +357,20 @@ if __name__ == '__main__':
 
     # 0, create temp scratch
     print "Setting up scratch version"
-#    ModSetupWorker.clearOld(base,temp)
+    ModSetupWorker.clearOld(base,temp)
     print "Scratch version set up.  Proceding..."
 
     # 1, update speed, recalculate cost 
     print "Update Speed..."
-#    ModJoinSpeed.joinSpeed(inSpace, inGdb, inSpeed)
+    ModJoinSpeed.joinSpeed(inSpace, inGdb, inSpeed)
 
     # 2, rebuild network dataset
     print "Speed updated. Rebuild Dataset..."
-#    ModBuild.build(inSpace, inGdb)
+    ModBuild.build(inSpace, inGdb)
     
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
-#    ModSolve.solve(inSpace, inGdb, fcTAZ, fcDet)
+    ModSolve.solveAccu(inSpace, inGdb, fcTAZ, fcDet)
 
 
 
@@ -398,20 +400,20 @@ if __name__ == '__main__':
 
     # 0, create temp scratch
     print "Setting up scratch version"
-#    ModSetupWorker.clearOld(base,temp)
+    ModSetupWorker.clearOld(base,temp)
     print "Scratch version set up.  Proceding..."
 
     # 1, update speed, recalculate cost 
     print "Update Speed..."
-#    ModJoinSpeed.joinSpeed(inSpace, inGdb, inSpeed)
+    ModJoinSpeed.joinSpeed(inSpace, inGdb, inSpeed)
 
     # 2, rebuild network dataset
     print "Speed updated. Rebuild Dataset..."
-#    ModBuild.build(inSpace, inGdb)
+    ModBuild.build(inSpace, inGdb)
     
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
-#    ModSolve.solve(inSpace, inGdb, fcTAZ, fcDet)
+    ModSolve.solveAccu(inSpace, inGdb, fcTAZ, fcDet)
 
     print "Predicting flow from gravity equation"
     pinFlow = inSpacepre+'CSV/TotalTTflow'+str(currentIter)+'.csv'
