@@ -267,31 +267,35 @@ if __name__ == '__main__':
     drvpath = 'C:/Users/Dennis/Desktop/Pre/'
     transitpath = 'C:/Users/Dennis/Desktop/TransitPre/'
     inSpace = transitpath
+    
+#   This adds a prefix to the variables output to the transit matrix.
+#   e.g. predps, postdps  Should be 'post' unless it's 'pre'.
+    varprefix = 'pre'
+    base = "LA_MetroPreBus-DPS.gdb"
+    temp = "LA-scratch.gdb"
+    inNetwork = "PreBusDPS_ND"
 
      
 ### Cost matrix calculation
     print "Transit cost matrix calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
     print "Using transit dataset at:", transitpath
     # Specify the transit gdb
-    base = "LA_MetroPreBus-DPS.gdb"
-    temp = "LA-scratch.gdb"
     inGdb = temp
     base = inSpace+base
     temp = inSpace+temp
-    inNetwork = "PreBusDPS_ND"
 
     # 0, create temp scratch
     print "Setting up scratch version"
-#    ModSetupWorker.clearOld(base,temp)
+    ModSetupWorker.clearOld(base,temp)
     print "Scratch version set up.  Proceding..."
 
     # 2, rebuild network dataset
     print "Speed updated. Rebuild Dataset..."
-#    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
+    ModBuild.buildTrans(inSpace, inNetwork, inGdb)
     
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
-#    solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
+    solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet)
     print "Transit cost matrix calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
    
     
@@ -333,7 +337,7 @@ if __name__ == '__main__':
     TransitPre['cost'] = TransitPre['dps']*vot + TransitPre['fare']         # Update cost
     TransitPre = TransitPre[['oid','did','dps','fare','cost','busl','metrol','walkl','length']]   # keep relavent variables
     colname = TransitPre.columns.values   
-    colname = ['pre'+name for name in colname]   # Rename variables
+    colname = [varprefix+name for name in colname]   # Rename variables
     colname[0:2] = ['oid','did']
     TransitPre.columns = colname
     
@@ -342,13 +346,13 @@ if __name__ == '__main__':
     Dataset=pd.merge(Dataset, TransitPre,   left_on=['oid', 'did'], right_on=['oid', 'did'], how='inner')
     
     # Generate new Sij, flow
-    Dataset['costdiffpre'] = 5.45-5.05*(Dataset['precost']/Dataset['predrvcost'])
-    Dataset['Sijpre']  = np.exp(Dataset['costdiffpre']) /(1 + np.exp(Dataset['costdiffpre']))
-    Dataset['dflowpre']  = Dataset['totalflow'] * (1-Dataset['Sijpre'])
-    Dataset['tflowpre']  = Dataset['totalflow'] * (Dataset['Sijpre'])
+    Dataset['costdiff'] = 5.45-5.05*(Dataset[varprefix+'cost']/Dataset['predrvcost'])
+    Dataset['Sij']  = np.exp(Dataset['costdiff']) /(1 + np.exp(Dataset['costdiff']))
+    Dataset['dflow']  = Dataset['totalflow'] * (1-Dataset['Sij'])
+    Dataset['tflow']  = Dataset['totalflow'] * (Dataset['Sij'])
     
     # Save the flow into TransTTflow1.csv in corresponding folder.
-    tflowpre = Dataset[['oid','did','tflowpre']]
+    tflowpre = Dataset[['oid','did','tflow']]
     tflowpre.to_csv(transitpath+'CSV/TransTTflow1.csv', header=None, index = None)
     
     # Write out the calculated matrix into DTA for table generation
