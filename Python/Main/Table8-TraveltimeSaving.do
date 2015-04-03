@@ -26,6 +26,7 @@ cls
 
 * Table 8 - Travel time saving
 qui {
+/* THESE ARE LOOKING AT THE DISTRIBUTIONAL EFFECT AND NOT TOTAL WELFARE
 * People who remain transit riders
 gen tflow = min(tflowpre, tflowpost)
 gen ttpre = predps*tflow
@@ -39,14 +40,19 @@ gen timesave = switchT * dpsdiff if switchT > 0
 gen switchD = dflowpost-dflowpre
 gen dpsdiffD = predrvdps - predps
 replace timesave = switchD * dpsdiffD if switchD > 0
+*/
+
+* Total welfare effect = MB(TT) x \DeltaM(expansion)
+** >> i.e. travel time saving in transit x number of people moved
+* Calculate number of people moved
+gen switchT = tflowpost-tflowpre
+gen timediff = postdps - predps
+gen timesave = switchT*timediff
 }
 
-order switch* tflow* dflow* dpsdiff* timesave predps postdps predrvdps precost postcost predrvcost
-
 qui {
-n: di "Total transit travel time pre, post, and difference:"
-n: tabstat tt*, stat(sum)
-
+n: di "Welfare from time saving:"
+n: tabstat timesave, stat(sum)
 }
 beep
 x

@@ -261,19 +261,25 @@ if __name__ == '__main__':
     # VOT
     vot = 15
 
+##################################
+# EDIT THIS SECTION TO SET PATHS #
+##################################
 #   Specify two paths: 
 #       1) path to driving TT cost and driving total TT flow    
 #       2) path to transit network dataset
     drvpath = 'C:/Users/Dennis/Desktop/Pre/'
-    transitpath = 'C:/Users/Dennis/Desktop/TransitPre/'
+    transitpath = 'C:/Users/Dennis/Desktop/TransitPost_Fastall/'
     inSpace = transitpath
     
 #   This adds a prefix to the variables output to the transit matrix.
 #   e.g. predps, postdps  Should be 'post' unless it's 'pre'.
-    varprefix = 'pre'
-    base = "LA_MetroPreBus-DPS.gdb"
+    varprefix = 'post'
+    base = "LA_MetroPostBus-DPS.gdb"
     temp = "LA-scratch.gdb"
-    inNetwork = "PreBusDPS_ND"
+    inNetwork = "PostBusDPS_ND"
+##################################
+#   END OF SECTION TO SET PATHS  #
+##################################
 
      
 ### Cost matrix calculation
