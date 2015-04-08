@@ -1,8 +1,8 @@
 * This script generates Table 1, Table 2
 
 clear all
-local TransitPrePath = "C:/Users/Dennis/Desktop/TransitPre/CSV"
-local TransitPostPath = "C:/Users/Dennis/Desktop/TransitPost/CSV"
+local TransitPrePath = "C:/Users/Dennis/Desktop/CalcTransit/Pre/CSV"
+local TransitPostPath = "C:/Users/Dennis/Desktop/CalcTransit/Post/CSV"
 local outputFolder = "C:/Users/Dennis/Desktop/Results/1028"
 insheet using `TransitPrePath'/Transdetflow1.csv
 sort v1

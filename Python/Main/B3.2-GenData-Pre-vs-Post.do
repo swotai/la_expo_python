@@ -3,8 +3,8 @@ tempfile temp
 
 * Load pre driving TT and total flow matrices
 local DrivingPrePath = "C:/Users/Dennis/Desktop/Pre"
-local TransitPrePath = "C:/Users/Dennis/Desktop/TransitPre"
-local TransitPostPath = "C:/Users/Dennis/Desktop/TransitPost"
+local TransitPrePath = "C:/Users/Dennis/Desktop/CalcTransit/Pre"
+local TransitPostPath = "C:/Users/Dennis/Desktop/CalcTransit/Post"
 local outDataset = "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-post.dta"
 local vmtData = "C:/Users/Dennis/Desktop/Results/1028/TT_vmt"
 
