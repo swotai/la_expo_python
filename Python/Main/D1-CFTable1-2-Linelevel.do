@@ -1,9 +1,10 @@
 * This script generates All counterfactual tables
 
 clear all
-local TransitPrePath = "C:/Users/Dennis/Desktop/TransitPre/CSV"
-local TransitPostPath = "C:/Users/Dennis/Desktop/TransitPost/CSV"
-local TransitPostCFPath = "C:/Users/Dennis/Desktop/TransitPost_Fast/CSV"
+local TransitPrePath = "C:/Users/Dennis/Desktop/CalcTransit/Pre/CSV"
+local TransitPostPath = "C:/Users/Dennis/Desktop/CalcTransit/Post/CSV"
+local TransitPostCFPath = "C:/Users/Dennis/Desktop/CalcTransit/CF-fast/CSV"
+local TransitPostCF2Path = "C:/Users/Dennis/Desktop/CalcTransit/CF-fastall/CSV"
 local outputFolder = "C:/Users/Dennis/Desktop/Results/1028"
 insheet using `TransitPrePath'/Transdetflow1.csv
 sort v1
@@ -27,9 +28,19 @@ ren v2 post1flow
 label var post1flow "Transit post CF flow"
 merge 1:1 idstn using `temp'
 drop _m
+save `temp', replace
+insheet using `TransitPostCF2Path'/Transdetflow1.csv, clear
+sort v1
+ren v1 idstn
+ren v2 post2flow
+label var post2flow "Transit post CF flow fastall"
+merge 1:1 idstn using `temp'
+drop _m
+save `temp', replace
 
 gen dflowpct = (postflow/preflow)-1
 gen dflow1pct = (post1flow/postflow)-1
+gen dflow2pct = (post2flow/postflow)-1
 sum
 save `temp', replace
 
@@ -47,15 +58,18 @@ label values line LineName
 *Table 2
 tabstat dflowpct, by(line) stat(mean min p50 max) nototal
 tabstat dflow1pct, by(line) stat(mean min p50 max) nototal
+tabstat dflow2pct, by(line) stat(mean min p50 max) nototal
 
 *Table 1
 
-collapse (max)  maxpreflow=preflow maxpostflow=postflow maxpost1flow=post1flow ///
-(mean) avgpreflow=preflow avgpostflow=postflow avgpost1flow=post1flow ///
+collapse (max)  maxpreflow=preflow maxpostflow=postflow maxpost1flow=post1flow maxpost2flow=post2flow ///
+(mean) avgpreflow=preflow avgpostflow=postflow avgpost1flow=post1flow avgpost2flow=post2flow ///
 , by(line)
 
 
-list
+di "Browse data and copy/paste to excel"
+
+x
 
 /*
 Ballpark Ridership

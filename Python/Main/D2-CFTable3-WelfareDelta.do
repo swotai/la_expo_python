@@ -165,7 +165,7 @@ di "**removed transit miles annual = " %14.2f 2*260*`diff_vmt_transit'
 
 
 qui {
-	n: di "Table 8"
+	n: di "Table 8: Fast Expo"
 	n: di "**Hetero delay(Expansion) =" `delay1'-`delay0'
 	n: di "**baseline number of veh mile per day am peak = " `dvmtpre'
 	n: di "**Change in driving trips per day am peak = " `ddflow'

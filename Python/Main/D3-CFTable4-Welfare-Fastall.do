@@ -89,6 +89,9 @@ matrix tab = r(StatTotal)
 local diff_vmt_transit = tab[1,1]
 di "**removed transit miles per day am peak = " `diff_vmt_transit'
 di "**removed transit miles annual = " %14.2f 2*260*`diff_vmt_transit'
+gen switchT = tflowpost-tflowpre
+gen timediff = postdps - predps
+gen timesave = switchT*timediff
 }
 
 qui {
@@ -99,6 +102,8 @@ qui {
 	n: di "**Change in driving miles per day am peak = " `diff_vmt_drv'
 	n: di "**Change in transit trips per day am peak = " `dtflow'
 	n: di "**Change in transit miles per day am peak = " `diff_vmt_transit'
+	n: di "Travel Time Saving:"
+	n: tabstat timesave, stat(sum)
 }
 
 
@@ -161,6 +166,9 @@ matrix tab = r(StatTotal)
 local diff_vmt_transit = tab[1,1]
 di "**removed transit miles per day am peak = " `diff_vmt_transit'
 di "**removed transit miles annual = " %14.2f 2*260*`diff_vmt_transit'
+gen switchT1 = tflowpost1-tflowpre
+gen timediff1 = post1dps - predps
+gen timesave1 = switchT1*timediff1
 }
 
 
@@ -172,4 +180,6 @@ qui {
 	n: di "**Change in driving miles per day am peak = " `diff_vmt_drv'
 	n: di "**Change in transit trips per day am peak = " `dtflow'
 	n: di "**Change in transit miles per day am peak = " `diff_vmt_transit'
+	n: di "Travel Time Saving:"
+	n: tabstat timesave1, stat(sum)
 }
