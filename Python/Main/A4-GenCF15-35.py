@@ -282,17 +282,22 @@ if __name__ == '__main__':
 ##################################
 #   END OF SECTION TO SET PATHS  #
 ##################################
-
-    while currentIter < (maxspeed + startspeed): 
+    currentIter = startspeed
+    inGdb = temp
+    base = inSpace+base
+    temp = inSpace+temp
+    # Paths
+    fTT = drvpath+'CSV/TT.csv'
+    fTotalTTflow = drvpath+'CSV/TotalTTflow1.csv'
+    fTransitTT = transitpath+'CSV/TT.csv'
+    while currentIter < (maxspeed + 1): 
         speed = currentIter
         ### Cost matrix calculation
         print "Starting iteration", currentIter
         print "Transit cost matrix calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
         print "Using transit dataset at:", transitpath
         # Specify the transit gdb
-        inGdb = temp
-        base = inSpace+base
-        temp = inSpace+temp
+
     
         # 0, create temp scratch
         print "Setting up scratch version"
@@ -317,10 +322,7 @@ if __name__ == '__main__':
         import time
         
         print "Flow-gen starts: ", time.strftime("%d/%m/%Y - %H:%M:%S")
-        # Paths
-        fTT = drvpath+'CSV/TT.csv'
-        fTotalTTflow = drvpath+'CSV/TotalTTflow1.csv'
-        fTransitTT = transitpath+'CSV/TT.csv'
+
         
         # TT cost matrix column names
         TransTTlabel = ['v1', 'v2', 'v3', 'cost', 'length', 'dps', 'metrol', 'busl', 'walkl', 'lblue', 'lred', 'lgreen', 'lgold', 'lexpo']
@@ -368,10 +370,10 @@ if __name__ == '__main__':
         tflowpre.to_csv(transitpath+'CSV/TransTTflow' + str(currentIter) + '.csv', header=None, index = None)
         
         # Clean out un-necessary columns
-        del Dataset['index'], Dataset['predrvcost'], Dataset['predrvlen'], Dataset['predrvdps']
+        del Dataset['predrvcost'], Dataset['predrvlen'], Dataset['predrvdps']
         del Dataset['costdiff'], Dataset['Sij'], Dataset['dflow'], Dataset['tflow']
         # Write out the calculated matrix into DTA for table generation
-        Dataset.to_stata(transitpath+'TransitMatrix' + str(currentIter) + '.dta')
+        Dataset.to_stata(transitpath+'TransitMatrix' + str(currentIter) + '.dta', write_index=False)
         print "Flow-gen finishes: ", time.strftime("%d/%m/%Y - %H:%M:%S")
         del Dataset, TransitPre
     
