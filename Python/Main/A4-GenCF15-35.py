@@ -126,8 +126,8 @@ def solvetrans(inSpace, inNetwork, inGdb, fcTAZ, fcDet):
     inNetworkDataset = "Trans/"+inNetwork
     impedanceAttribute = "Cost"
     # accumulateAttributedt = "#" << Use this if no need to accumulate
-    accumulateAttributeTT = ['Length', 'Cost', 'DPS', 'lenmetro', 'lenbus', 'lenwalk', 'lblue', 'lred', 'lgreen', 'lgold', 'lexpo', 'lorange', 'lsilver']
-    FieldsTT = ["OriginID", "DestinationID", "Name", "Total_Cost", 'Total_Length', 'Total_DPS', 'Total_lenmetro', 'Total_lenbus', 'Total_lenwalk', 'Total_lblue', 'Total_lred', 'Total_lgreen', 'Total_lgold', 'Total_lexpo']
+    accumulateAttributeTT = ['Length', 'Cost', 'DPS', 'lenmetro', 'lenbus']
+    FieldsTT = ["OriginID", "DestinationID", "Name", "Total_Cost", 'Total_Length', 'Total_DPS', 'Total_lenmetro', 'Total_lenbus']
     accumulateAttributeDT = "#"
     FieldsDT = ["OriginID", "DestinationID", "Name", "Total_Cost"]
 
@@ -175,7 +175,7 @@ def alloc_trans(inSpace, inFlow, currentIter):
     nDET = 1813
 
     dttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8')]
-    tttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8'),('length','f8'),('dps','f8'),('metro','f8'),('bus','f8'),('walk','f8'),('blue','f8'),('green','f8'),('red','f8'),('gold','f8'),('expo','f8')]
+    tttype = [('oid','i8'),('did','i8'),('name','S20'),('cost','f8'),('length','f8'),('dps','f8'),('metro','f8'),('bus','f8')]
     fdtype = [('oid','i8'),('did','i8'),('postflow','f8')]
     
     print "importing various matrices"
@@ -323,9 +323,8 @@ if __name__ == '__main__':
         
         print "Flow-gen starts: ", time.strftime("%d/%m/%Y - %H:%M:%S")
 
-        
         # TT cost matrix column names
-        TransTTlabel = ['v1', 'v2', 'v3', 'cost', 'length', 'dps', 'metrol', 'busl', 'walkl', 'lblue', 'lred', 'lgreen', 'lgold', 'lexpo']
+        TransTTlabel = ['v1', 'v2', 'v3', 'cost', 'length', 'dps', 'metrol', 'busl']
         
         # Read Driving TT cost matrix
         TT = pd.read_csv(fTT, header=None)
@@ -349,11 +348,13 @@ if __name__ == '__main__':
         TransitPre['did'] = odNames['did']
         TransitPre['fare'] = 1.25*(TransitPre['busl']+TransitPre['metrol']>0)   # Generate fare
         TransitPre['cost'] = TransitPre['dps']*vot + TransitPre['fare']         # Update cost
-        TransitPre = TransitPre[['oid','did','dps','fare','cost','busl','metrol','walkl','length']]   # keep relavent variables
+        TransitPre = TransitPre[['oid','did','dps','fare','cost','busl','metrol','length']]   # keep relavent variables
         colname = TransitPre.columns.values   
         colname = [varprefix+name for name in colname]   # Rename variables
         colname[0:2] = ['oid','did']
         TransitPre.columns = colname
+        # add placeholder walkl (empty) column (since walkl = total-busl-metrol)
+        TransitPre[varprefix+'walkl']=np.nan
         
         # The Big Merge
         Dataset=pd.merge(TT, TotalTTflow,       left_on=['oid', 'did'], right_on=['oid', 'did'], how='inner')
