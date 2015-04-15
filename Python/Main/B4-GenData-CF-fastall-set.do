@@ -2,9 +2,10 @@
 clear all
 cd "C:/Users/Dennis/Desktop/CalcTransit/CF-fastall-set/"
 
+tempfile dflowpre
 tempname memhold
 local outfile = "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set.dta"
-postfile `memhold' speed traveltime ///
+postfile `memhold' speed traveltime delay ///
 	blue50 bluemax red50 redmax green50 greenmax gold50 goldmax ///
 	expo50 expomax orange50 orangemax silver50 silvermax ///
 	using `outfile', replace
@@ -26,6 +27,10 @@ qui {
 	local traveltimepre = r(sum)
 	sum ttpost, meanonly
 	local traveltimepost = r(sum)
+	ren oID oid
+	ren dID did
+	keep oid did dflowpre
+	save `dflowpre'
 }
 
 qui {
@@ -43,7 +48,7 @@ qui {
 		local l`l'p50 = out`l'[1,1]
 		local l`l'p100 = out`l'[2,1]
 	}
-	post `memhold' (0) (`traveltimepre') (`l1p50') (`l1p100') (`l2p50') (`l2p100') (`l3p50') (`l3p100') ///
+	post `memhold' (0) (`traveltimepre') (0) (`l1p50') (`l1p100') (`l2p50') (`l2p100') (`l3p50') (`l3p100') ///
 		(`l4p50') (`l4p100') (`l5p50') (`l5p100') (`l6p50') (`l6p100') (`l7p50') (`l7p100')
 	n: di "Completed: pre"
 }
@@ -63,7 +68,7 @@ qui {
 		local l`l'p50 = out`l'[1,1]
 		local l`l'p100 = out`l'[2,1]
 	}
-	post `memhold' (1) (`traveltimepost') (`l1p50') (`l1p100') (`l2p50') (`l2p100') (`l3p50') (`l3p100') ///
+	post `memhold' (1) (`traveltimepost') (0) (`l1p50') (`l1p100') (`l2p50') (`l2p100') (`l3p50') (`l3p100') ///
 		(`l4p50') (`l4p100') (`l5p50') (`l5p100') (`l6p50') (`l6p100') (`l7p50') (`l7p100')
 	n: di "Completed: post"
 }
@@ -76,6 +81,23 @@ forvalues currentSpeed = 15/34 {
 	gen tt = postdps * tflow
 	sum tt, meanonly
 	local traveltime = r(sum)
+	merge 1:1 oid did using `dflowpre'
+	
+	gen dpsspd = predrvlen / predrvdps
+	drop if dps > 65
+	gen delay0 = 65/dps-1
+	gen flow0 = 500+log(dpsspd/65)/(-.000191)
+	gen pctddflow = dflow/dflowpre
+	gen flow1 = flow0*pctddflow
+	gen spd1 = 65*exp(-.000191*(flow1-500))
+	gen delay1 = 65/spd1 -1
+	sum delay0 [iw=dflowpre], meanonly
+	local delay0 = `r(mean)'
+	sum delay1 [iw=dflowpre], meanonly
+	local delay1 = `r(mean)'
+	local delay = `delay1'-`delay0'
+
+
 	insheet using "C:/Users/Dennis/Desktop/CalcTransit/CF-fastall-set/CSV/Transdetflow`currentSpeed'.csv", clear
 	sort v1
 	ren v1 idstn
@@ -88,7 +110,7 @@ forvalues currentSpeed = 15/34 {
 		local l`l'p50 = out`l'[1,1]
 		local l`l'p100 = out`l'[2,1]
 	}
-	post `memhold' (`currentSpeed') (`traveltime') (`l1p50') (`l1p100') (`l2p50') (`l2p100') (`l3p50') (`l3p100') ///
+	post `memhold' (`currentSpeed') (`traveltime') (`delay') (`l1p50') (`l1p100') (`l2p50') (`l2p100') (`l3p50') (`l3p100') ///
 		(`l4p50') (`l4p100') (`l5p50') (`l5p100') (`l6p50') (`l6p100') (`l7p50') (`l7p100')
 
 	n: di "Completed: speed = " `currentSpeed'
