@@ -370,9 +370,6 @@ if __name__ == '__main__':
         tflowpre = Dataset[['oid','did','tflow']]
         tflowpre.to_csv(transitpath+'CSV/TransTTflow' + str(currentIter) + '.csv', header=None, index = None)
         
-        # Clean out un-necessary columns
-        del Dataset['predrvcost'], Dataset['predrvlen'], Dataset['predrvdps']
-        del Dataset['costdiff'], Dataset['Sij'], Dataset['dflow'], Dataset['tflow']
         # Write out the calculated matrix into DTA for table generation
         Dataset.to_stata(transitpath+'TransitMatrix' + str(currentIter) + '.dta', write_index=False)
         print "Flow-gen finishes: ", time.strftime("%d/%m/%Y - %H:%M:%S")
