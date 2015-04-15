@@ -1,5 +1,5 @@
 * Run A3.1-GenData-Pre-vs-Post before this script
-* Script generates numbers for Table 9
+* Script generates Table 3 in CF excel file
 clear all
 
 use "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-cffastall.dta", clear
