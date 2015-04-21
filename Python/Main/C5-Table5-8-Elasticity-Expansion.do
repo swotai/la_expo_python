@@ -32,8 +32,8 @@ gen metroonlypost= postbusl==0 & postmetrol>0
 gen walkonlypre = prebusl==0  & premetrol==0
 gen walkonlypost= postbusl==0 & postmetrol==0
 
-gen dvmtpre = drvlength*dflowpre
-gen dvmtpost = drvlength*dflowpost
+gen dvmtpre = predrvlen*dflowpre
+gen dvmtpost = predrvlen*dflowpost
 gen tvmtpre = prelength*tflowpre
 gen tvmtpost = prelength*tflowpost
 gen tflowmetropre = tflowpre * metropre
@@ -84,7 +84,7 @@ cls
 
 * Table 4 (Hidden in  column K,L), for table 8
 qui {
-gen dpsspd = drvlength / predrvdps
+gen dpsspd = predrvlen / predrvdps
 drop if dps > 65
 
 gen delay0 = 65/dps-1
@@ -105,7 +105,7 @@ di "**Hetero delay(expand) =" `delay1'-`delay0'
 qui{
 gen ddflow = dflowpost-dflowpre
 gen dtflow = tflowpost-tflowpre
-gen diff_vmt_drv = ddflow * drvlength
+gen diff_vmt_drv = ddflow * predrvlen
 gen diff_vmt_transit = dtflow * prelength
 }
 
@@ -215,22 +215,22 @@ replace distcat=2 if prelength <5
 replace distcat=1 if prelength <3
 
 gen drvdistcat=17
-replace drvdistcat=16 if drvlength <40
-replace drvdistcat=15 if drvlength <37
-replace drvdistcat=14 if drvlength <35
-replace drvdistcat=13 if drvlength <33
-replace drvdistcat=12 if drvlength <30
-replace drvdistcat=11 if drvlength <27
-replace drvdistcat=10 if drvlength <25
-replace drvdistcat=9 if drvlength <23
-replace drvdistcat=8 if drvlength <20
-replace drvdistcat=7 if drvlength <17
-replace drvdistcat=6 if drvlength <15
-replace drvdistcat=5 if drvlength <13
-replace drvdistcat=4 if drvlength <10
-replace drvdistcat=3 if drvlength <7
-replace drvdistcat=2 if drvlength <5
-replace drvdistcat=1 if drvlength <3
+replace drvdistcat=16 if predrvlen <40
+replace drvdistcat=15 if predrvlen <37
+replace drvdistcat=14 if predrvlen <35
+replace drvdistcat=13 if predrvlen <33
+replace drvdistcat=12 if predrvlen <30
+replace drvdistcat=11 if predrvlen <27
+replace drvdistcat=10 if predrvlen <25
+replace drvdistcat=9 if predrvlen <23
+replace drvdistcat=8 if predrvlen <20
+replace drvdistcat=7 if predrvlen <17
+replace drvdistcat=6 if predrvlen <15
+replace drvdistcat=5 if predrvlen <13
+replace drvdistcat=4 if predrvlen <10
+replace drvdistcat=3 if predrvlen <7
+replace drvdistcat=2 if predrvlen <5
+replace drvdistcat=1 if predrvlen <3
 
 
 label define DistCat ///

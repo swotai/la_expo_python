@@ -77,16 +77,6 @@ merge 1:1 oID dID using `temp'
 drop _m
 save `temp', replace
 
-
-* Merge with VMT data
-merge 1:1 oID dID using `vmtData'
-drop _m *pre1
-ren vmt drvlength
-label var drvlength "Driving distance"
-
-order *, alpha
-order oID dID
-
 save `outDataset', replace
 
 beep

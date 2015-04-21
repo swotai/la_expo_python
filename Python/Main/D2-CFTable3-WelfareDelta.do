@@ -24,7 +24,7 @@ label var tflowpre "Transit flow pre expo"
 label var tflowpost "Transit flow post expo"
 label var tflowpost1 "Transit flow FAST expo"
 
-gen dvmtpre = drvlength*dflowpre
+gen dvmtpre = predrvlen*dflowpre
 
 drop if oID == dID
 
@@ -32,7 +32,7 @@ cls
 
 * Table 3 part 1: original
 qui {
-gen dpsspd = drvlength / predrvdps
+gen dpsspd = predrvlen / predrvdps
 drop if dps > 65
 
 gen delay0 = 65/dps-1
@@ -53,7 +53,7 @@ di "**Hetero delay(expand) =" `delay1'-`delay0'
 qui{
 gen ddflow = dflowpost-dflowpre
 gen dtflow = tflowpost-tflowpre
-gen diff_vmt_drv = ddflow * drvlength
+gen diff_vmt_drv = ddflow * predrvlen
 gen diff_vmt_transit = dtflow * prelength
 }
 
@@ -125,7 +125,7 @@ sum delay0 delay1 flow0 flow1 pctddflow spd1
 qui{
 gen ddflow1 = dflowpost1-dflowpre
 gen dtflow1 = tflowpost1-tflowpre
-gen diff_vmt_drv1 = ddflow1 * drvlength
+gen diff_vmt_drv1 = ddflow1 * predrvlen
 gen diff_vmt_transit1 = dtflow1 * prelength
 }
 

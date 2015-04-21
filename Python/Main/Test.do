@@ -10,6 +10,66 @@ postfile `memhold' speed timesave tflow dvmt avgtspd delay ///
 	using `outfile', replace
 local defdelay = 0
 
+	use "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-post.dta", clear
+	drop if oID == dID
+	gen costdiffpre = 5.45-5.05*(precost/predrvcost)
+	gen costdiffpost = 5.45-5.05*(postcost/predrvcost)
+	gen Sijpre = exp(costdiffpre)/(1+exp(costdiffpre))
+	gen Sijpost = exp(costdiffpost)/(1+exp(costdiffpost))
+	gen dflowpre = totalflow * (1-Sijpre)
+	gen dflowpost = totalflow * (1-Sijpost)
+	gen tflowpre = totalflow * (Sijpre)
+	gen tflowpost = totalflow * (Sijpost)
+	gen ttpre = predps*tflowpre
+	gen ttpost = postdps*tflowpost
+	gen dvmtpre = dflowpre * predrvlen
+	gen dvmtpost = dflowpost * predrvlen
+	sum ttpre, meanonly
+	local traveltimepre = r(sum)
+	sum ttpost, meanonly
+	local traveltimepost = r(sum)
+	sum tflowpre, meanonly
+	local tflowpre = r(sum)
+	sum tflowpost, meanonly
+	local tflowpost = r(sum)
+	sum dvmtpre, meanonly
+	local dvmtpre = r(sum)
+	sum dvmtpost, meanonly
+	local dvmtpost = r(sum)
+	sum predps [iw=tflowpre], meanonly
+	local prespd = r(mean)
+	sum postdps [iw=tflowpost], meanonly
+	local postspd = r(mean)
+	
+	gen dpsspd = predrvlen / predrvdps
+	drop if dps > 65
+	gen delay0 = 65/dps-1
+	gen flow0 = 500+log(dpsspd/65)/(-.000191)
+	gen pctddflow = dflowpost/dflowpre
+	gen flow1 = flow0*pctddflow
+	gen spd1 = 65*exp(-.000191*(flow1-500))
+	gen delay1 = 65/spd1 -1
+	sum delay0 [iw=dflowpre], meanonly
+	local delay0 = `r(mean)'
+	sum delay1 [iw=dflowpre], meanonly
+	local delay1 = `r(mean)'
+	local delaynow = `delay1'-`delay0'
+	
+	gen switchT = tflowpost-tflowpre
+	gen timediff = postdps - predps
+	gen timesave = switchT*timediff
+	sum timesave, meanonly
+	local timesaved = r(sum)
+	
+	post `memhold' (11) (0) (`tflowpre') (`dvmtpre') (`prespd') (`defdelay') ///
+		(0) (0) (0) (0) (0) (0) (0)
+	post `memhold' (12) (`timesaved') (`tflowpost') (`dvmtpost') (`postspd') (`delaynow') ///
+		(0) (0) (0) (0) (0) (0) (0)
+
+postclose `memhold'
+
+use `outfile', clear
+x
 * No Metro case
 qui {
 	use "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-shutdown.dta", clear

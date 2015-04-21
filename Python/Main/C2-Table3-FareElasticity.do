@@ -26,8 +26,8 @@ label var dflow90 "Driving flow @ transit cost = 90%"
 label var tflow "Transit flow"
 label var tflow90 "Transit flow @ transit cost = 90%"
 
-gen vmt = drvlength*dflow
-gen vmt90 = drvlength*dflow90
+gen vmt = predrvlen*dflow
+gen vmt90 = predrvlen*dflow90
 gen tvmt = prelength*tflow
 gen tvmt90 = prelength90*tflow90
 

@@ -32,8 +32,8 @@ gen metroonlypost= postbusl==0 & postmetrol>0
 gen walkonlypre = prebusl==0  & premetrol==0
 gen walkonlypost= postbusl==0 & postmetrol==0
 
-gen dvmtpre = drvlength*dflowpre
-gen dvmtpost = drvlength*dflowpost
+gen dvmtpre = predrvlen*dflowpre
+gen dvmtpost = predrvlen*dflowpost
 gen tvmtpre = prelength*tflowpre
 gen tvmtpost = prelength*tflowpost
 gen tflowmetropre = tflowpre * metropre
@@ -84,7 +84,7 @@ cls
 
 * Table 4 (Hidden in  column K,L)
 qui {
-gen dpsspd = drvlength / predrvdps
+gen dpsspd = predrvlen / predrvdps
 drop if dps > 65
 
 gen delay0 = 65/dps-1
@@ -105,7 +105,7 @@ di "**Hetero delay(shutdown) =" `delay1'-`delay0'
 qui{
 gen ddflow = dflowpost-dflowpre
 gen dtflow = tflowpost-tflowpre
-gen diff_vmt_drv = ddflow * drvlength
+gen diff_vmt_drv = ddflow * predrvlen
 gen diff_vmt_transit = dtflow * prelength
 }
 
@@ -207,16 +207,16 @@ matrix tab = r(StatTotal)
 local dflowpre = tab[1,1]
 n: di "**baseline number of car trips per day am peak = " `dflowpre'
 
-sum drvlength [iw=dflowpre], meanonly
-local avgdrvlength = `r(mean)'
-n: di "**Average baseline driving length = " `avgdrvlength'
+sum predrvlen [iw=dflowpre], meanonly
+local avgpredrvlen = `r(mean)'
+n: di "**Average baseline driving length = " `avgpredrvlen'
 
 tabstat ddflow, stat(sum) save
 matrix tab = r(StatTotal)
 local ddflow = tab[1,1]
 n: di "**number trips added to driving or removed from transit = " `ddflow'
 
-sum drvlength [iw=ddflow], meanonly
+sum predrvlen [iw=ddflow], meanonly
 local avgtranlength = `r(mean)'
 n: di "**Average added driving length = " `avgtranlength'
 
