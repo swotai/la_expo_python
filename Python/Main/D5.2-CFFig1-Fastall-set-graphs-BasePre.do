@@ -1,7 +1,7 @@
 clear all
 
-use "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set.dta", clear
-cd "D:\Dropbox\Cornell\LA Expo Line Project\Data Files\Gravity Flow Prediction\Output"
+use "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set-basePre.dta", clear
+cd "D:\Dropbox\Cornell\LA Expo Line Project\Data Files\Gravity Flow Prediction\Output\BasePre"
 
 * Calculate Congestion relief, Pollution relief
 * Pollution relief
@@ -11,10 +11,11 @@ gen bPollute = vmtdiff*(1.102*10^(-6))*(439.4*21 + .07*15000 + .09*4100)
 * Congestion relief
 * 0.25 = 15$ VOT per hour convert to per min
 * Following the excel file we use the "no metro" driving vmt.
+
 gen bCongest = dvmt[1]*0.25*delay
 
 * Travel time savings
-gen bTraveltime = timesave * 15 / 2
+gen bTraveltime = timesave * 15/2
 
 * Total benefit (Convert to annual)
 replace bPollute = -1*bPollute*2*260
@@ -52,7 +53,7 @@ replace timesave = -1*timesave;
 twoway 
 (line timesave speed) ,
 title(Total time saved) 
-subtitle(Compared to no-metro scenario) 
+subtitle(Compared to Metro at Pre-Expo level) 
 ytitle(Hours) 
 xtitle(Metro speed mph) 
 ylabel(, labsize(vsmall)) 
@@ -64,7 +65,7 @@ graph export CF-Set-traveltimesaved.png, replace;
 twoway 
 (line tflow speed) ,
 title(Total transit usage) 
-subtitle(Compared to no-metro scenario) 
+subtitle(Compared to Metro at Pre-Expo level) 
 ytitle(Number of transit trips) 
 xtitle(Metro speed mph) 
 ylabel(, labsize(vsmall)) 
@@ -77,7 +78,7 @@ graph export CF-Set-transitflow.png, replace;
 
 graph bar (asis) bPollute bCongest bTraveltime, 
 over(speed) stack ytitle(Dollar amount) ylabel(, labsize(vsmall) format(%16.0gc) angle(forty_five)) 
-title(Total welfare effect of various Metro speeds) subtitle(Compared to no-Metro baseline scenario) 
+title(Total welfare effect of various Metro speeds) subtitle(Compared to Metro at Pre-Expo level)  
 note("Note:"
 "Pollution reduction calculated by multiplying the driving vehicle miles removed with"
 "the various emission parameters following Table 8, at each counterfactual speeds."
@@ -87,9 +88,9 @@ note("Note:"
 legend(order(1 "Pollution reduction" 2 "Congestion relief" 3 "Travel time saving"));
 graph export CF-Set-Welfarechange.png, replace;
 
-graph bar (asis) abPollute abCongest bTraveltime, 
+graph bar (asis) abPollute abCongest bTraveltime if speed > 24, 
 over(speed) stack ytitle(Dollar amount) ylabel(, labsize(vsmall) format(%16.0gc) angle(forty_five)) 
-title(Total welfare effect of various Metro speeds-adjusted) subtitle(Compared to no-Metro baseline scenario) 
+title(Total welfare effect of various Metro speeds-adjusted) subtitle(Compared to Metro at Pre-Expo level) 
 note("Note:"
 "Pollution reduction calculated by multiplying the driving vehicle miles removed with"
 "the various emission parameters following Table 8, at each counterfactual speeds."

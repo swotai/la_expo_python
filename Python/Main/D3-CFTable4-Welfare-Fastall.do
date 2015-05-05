@@ -107,7 +107,7 @@ qui {
 }
 
 
-* Table 3 part 2: Faster Expo
+* Table 3 part 2: Faster ALL
 qui {
 sum delay0 delay1 flow0 flow1 pctddflow spd1
 drop delay0 delay1 flow0 flow1 pctddflow spd1
@@ -173,7 +173,7 @@ gen timesave1 = switchT1*timediff1
 
 
 qui {
-	n: di "Table 8"
+	n: di "Table 8: Fass All Metro"
 	n: di "**Hetero delay(Expansion) =" `delay1'-`delay0'
 	n: di "**baseline number of veh mile per day am peak = " `dvmtpre'
 	n: di "**Change in driving trips per day am peak = " `ddflow'

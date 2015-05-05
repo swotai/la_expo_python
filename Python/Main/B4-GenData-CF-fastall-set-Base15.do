@@ -1,16 +1,17 @@
 * Script generates statistics for CF set
+* THIS SCRIPT USES 15 MPH AS BASELINE
 clear all
 cd "C:/Users/Dennis/Desktop/CalcTransit/CF-fastall-set/"
 
 tempfile dflowpre
 tempname memhold
-local outfile = "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set.dta"
+local outfile = "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set-base15.dta"
 postfile `memhold' speed timesave tflow dflow dvmt avgtspd delay ///
 	bluemax redmax greenmax goldmax expomax orangemax silvermax ///
 	using `outfile', replace
 local defdelay = 0
 
-* No Metro case
+/** No Metro case
 qui {
 	use "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-shutdown.dta", clear
 	drop if oID == dID
@@ -54,12 +55,24 @@ qui {
 	post `memhold' (-1) (`traveltimepost') (`tflownometro') (`dflownometro') (`dvmtnometro') (`nometrospd') (`delaybase') ///
 		(`l1p100') (`l2p100') (`l3p100') (`l4p100') (`l5p100') (`l6p100') (`l7p100')
 	n: di "Completed: nometro"
-}
+}*/
+use aTransitMatrix15, clear
+drop if oid == did
+gen dvmtpost = dflow * predrvlen
+sum dvmtpost, meanonly
+local dvmtnow = r(sum)
 
+ren dflow dflowpre
+ren tflow tflowpre
+ren postdps predps
+keep oid did dflowpre tflowpre predps predrvlen predrvdps
+save `dflowpre'
+post `memhold' (-1) (0) (0) (0) (`dvmtnow') (0) (0) ///
+		(0) (0) (0) (0) (0) (0) (0)
 
 *Start looping through the CF set
 qui {
-forvalues currentSpeed = 15/34 {
+forvalues currentSpeed = 16/34 {
 	use aTransitMatrix`currentSpeed', clear
 	drop if oid == did
 	gen tt = postdps * tflow
@@ -85,7 +98,7 @@ forvalues currentSpeed = 15/34 {
 	local tspdnow = r(mean)
 
 	gen dpsspd = predrvlen / predrvdps
-	*drop if dps > 65
+	drop if dps > 65
 	gen delay0 = 65/dps-1
 	gen flow0 = 500+log(dpsspd/65)/(-.000191)
 	gen pctddflow = dflowpost/dflowpre

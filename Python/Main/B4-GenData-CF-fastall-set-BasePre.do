@@ -1,41 +1,38 @@
 * Script generates statistics for CF set
+* THIS SCRIPT USES 15 MPH AS BASELINE
 clear all
 cd "C:/Users/Dennis/Desktop/CalcTransit/CF-fastall-set/"
 
 tempfile dflowpre
 tempname memhold
-local outfile = "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set.dta"
+local outfile = "C:/Users/Dennis/Desktop/Results/1028/CF-fastall-set-basePre.dta"
 postfile `memhold' speed timesave tflow dflow dvmt avgtspd delay ///
 	bluemax redmax greenmax goldmax expomax orangemax silvermax ///
 	using `outfile', replace
 local defdelay = 0
 
-* No Metro case
+* Pre case
 qui {
 	use "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-shutdown.dta", clear
 	drop if oID == dID
-	gen costdiffpost = 5.45-5.05*(postcost/predrvcost)
-	gen Sijpost = exp(costdiffpost)/(1+exp(costdiffpost))
-	gen dflowpost = totalflow * (1-Sijpost)
-	gen tflowpost = totalflow * (Sijpost)
-	gen ttpost = postdps*tflowpost
-	gen dvmtpost = dflowpost * predrvlen
-	sum ttpost, meanonly
+	gen costdiffpre = 5.45-5.05*(precost/predrvcost)
+	gen Sijpre = exp(costdiffpre)/(1+exp(costdiffpre))
+	gen dflowpre = totalflow * (1-Sijpre)
+	gen tflowpre = totalflow * (Sijpre)
+	gen ttpre = predps*tflowpre
+	gen dvmtpre = dflowpre * predrvlen
+	sum ttpre, meanonly
 	local traveltimepost = 0
-	sum tflowpost, meanonly
+	sum tflowpre, meanonly
 	local tflownometro = r(sum)
-	sum dflowpost, meanonly
+	sum dflowpre, meanonly
 	local dflownometro = r(sum)
-	sum dvmtpost, meanonly
+	sum dvmtpre, meanonly
 	local dvmtnometro = r(sum)
-	sum postdps [iw=tflowpost], meanonly
+	sum predps [iw=tflowpre], meanonly
 	local nometrospd = r(mean)
 	ren oID oid
 	ren dID did
-	drop predps
-	ren dflowpost dflowpre
-	ren tflowpost tflowpre
-	ren postdps predps
 	keep oid did dflowpre tflowpre predps predrvlen predrvdps
 	save `dflowpre'
 
@@ -85,7 +82,7 @@ forvalues currentSpeed = 15/34 {
 	local tspdnow = r(mean)
 
 	gen dpsspd = predrvlen / predrvdps
-	*drop if dps > 65
+	drop if dps > 65
 	gen delay0 = 65/dps-1
 	gen flow0 = 500+log(dpsspd/65)/(-.000191)
 	gen pctddflow = dflowpost/dflowpre

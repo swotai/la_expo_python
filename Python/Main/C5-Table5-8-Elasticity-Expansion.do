@@ -189,6 +189,8 @@ qui {
 	n: di "**baseline number of veh mile per day am peak = " `dvmtpre'
 	n: di "**Change in driving trips per day am peak = " `ddflow'
 	n: di "**Change in driving miles per day am peak = " `diff_vmt_drv'
+	n: di "**Change in transit trips per day am peak = " `dtflow'
+	n: di "**Change in driving miles per day am peak = " `diff_vmt_transit'
 }
 
 x
