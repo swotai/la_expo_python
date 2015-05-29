@@ -6,7 +6,7 @@ use "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-cffastall.dta", clear
 ren post1* post2*
 merge 1:1 oID dID using "C:/Users/Dennis/Desktop/Results/1028/Transit-pre-cffast.dta"
 drop _m
-order oID dID totalflow drvlength fare* pre* post*
+order oID dID totalflow predrvlen fare* pre* post*
 
 * Generate new Sij
 * NOTE Driving cost does not change in this case.
