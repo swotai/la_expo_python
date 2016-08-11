@@ -85,19 +85,20 @@ cls
 * Table 4 (Hidden in  column K,L), for table 8
 qui {
 gen dpsspd = predrvlen / predrvdps
-drop if dps > 65
+replace dpsspd = 65 if dpsspd > 65
 
 gen delay0 = 65/dps-1
 gen flow0 = 500+log(dpsspd/65)/(-.000191)
 gen pctddflow = dflowpost/dflowpre
 gen flow1 = flow0*pctdd
 gen spd1 = 65*exp(-.000191*(flow1-500))
+replace spd1 = 65 if spd1 > 65
 gen delay1 = 65/spd1 -1
 sum delay0 [iw=dflowpre], meanonly
 local delay0 = `r(mean)'
 sum delay1 [iw=dflowpre], meanonly
 local delay1 = `r(mean)'
-di "**Hetero delay(expand) =" `delay1'-`delay0'
+n: di "**Hetero delay(expand) =" `delay1'-`delay0'
 
 }
 
@@ -190,7 +191,7 @@ qui {
 	n: di "**Change in driving trips per day am peak = " `ddflow'
 	n: di "**Change in driving miles per day am peak = " `diff_vmt_drv'
 	n: di "**Change in transit trips per day am peak = " `dtflow'
-	n: di "**Change in driving miles per day am peak = " `diff_vmt_transit'
+	n: di "**Change in transit miles per day am peak = " `diff_vmt_transit'
 }
 
 x

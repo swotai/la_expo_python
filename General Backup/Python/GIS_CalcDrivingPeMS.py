@@ -8,13 +8,6 @@ Created on Tue Dec 23 21:38:08 2014
 # 1, Update speed, recalculate cost
 # 2, rebuild network dataset
 # 3, Calculate cost (TT = TD + DT)
-# 4, Compute detector level flow
-# 5, Compute detector level updated speed using supply side equation
-
-*** MAKE SURE TotalFlow doesn't change across opening.  >>> FIX TTFLOW.  DON"T GRAVITY AGAIN
-
-# For Equilibrium calculation
-
 """
 # This VOT is for the update functions.  changed from 11.5375 to 15 (1/26/15)
 # REMEMBER to also change the ModJoinSpeed function
@@ -292,33 +285,9 @@ def update_step2(inSpace, currentIter, inTTp, inFlow):
 if __name__ == '__main__':
     # Parameter settings (mostly paths):
     # NOTE: MAKE SURE inSpace folder HAS ending slash "/"
-    base = "DriveOnly_LA.gdb"
-    temp = "LA-scratch.gdb"
-    #inSpace = "C:/Users/Dennis/Desktop/DATA1/"
-    inSpace = "E:/DATA_Post_fix1028/"
-    inGdb = temp
-    #inSpeed = "spdtest.csv"
-#    SET whether use transit Pre or Post cost
-#    Make sure csvs have correct format.
-#    oID_TAZ12A,dID_TAZ12A,post_triptime,postcost
-#    20211000,20211000,0,0
-#    20211000,20212000,89.348434,19.777
     
-    
-    ##TAZs:
-    ##    TAZ_LA_proj_centroid  >---< inFlow.csv
-    ##    TAZ_LA_TESTSAMPLE (50)  >---< inFlow50.csv
-    ##Detectors:
-    ##    hd_ML_snap (1800)
     fcTAZ = "TAZ_LA_proj_centroid"
     fcDet = "hd_ML_snap"
-    #inFLOW = PREDICTED FLOW FROM GRAVITY (STATIC, OBSELETE), not to confused with AF (Actual Flow)
-    #inFLOW.csv at inSpace is used for Pre flow as starting point for iteration.
-#    inFlow = inSpace + "inFlow.csv"
-    
-    #Specify output file path for excel of relative gap 
-    outRelGap = inSpace + "FIGS/relgap.csv"
-    
         
     #For Allocation
     #weight is how much weight to put into new speed
@@ -332,25 +301,21 @@ if __name__ == '__main__':
     threshIT = 0.00001
     threshDS = 1
     
-    # The way this is coded, if an iteraction is completed
-    # i.e. with the speed outputed, the code can start from there.
-    # Change the currentIter to the max number of detspd +1
-    
-
     #ACTUAL COMPUTATION START HERE
     # Import necessary modules
-    import ModSetupWorker, ModJoinSpeed, ModBuild, ModSolve, ModAlloc, ModSpeedCalc_avg10
+    import ModSetupWorker, ModJoinSpeed, ModBuild, ModSolve, ModAlloc
     import time
     
     currentIter = 1
     
-    # Pre equilibrium calculation
-    print "Pre expo equilibrium calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
-    inSpace = "C:/Users/Dennis/Desktop/Pre/"
+    # driving calculation
+    print "Driving calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    inSpace = "D:/SWOT/Desktop/DrivingPems/"
     inTTp = inSpace+"TTpubPre.csv" 
     inSpeed = "detspd" + str(currentIter - 1) + ".csv"
     base = "DriveOnly_LA.gdb"
     temp = "LA-scratch.gdb"
+    inGdb = temp
     base = inSpace+base
     temp = inSpace+temp
     print inTTp, ", at", inSpace, "using speed vector", inSpeed
@@ -371,8 +336,6 @@ if __name__ == '__main__':
     # 3, solve network
     print "Dataset rebuilt. Solve for TT, TD, DT"
     ModSolve.solveAccu(inSpace, inGdb, fcTAZ, fcDet)
-
-
 
     print "Predicting flow from gravity equation"
     update_step1(inSpace, currentIter, inTTp)
@@ -381,49 +344,6 @@ if __name__ == '__main__':
     inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
     flow = ModAlloc.alloc(inSpace, inFlow, currentIter)
 
-    ModSpeedCalc_avg10.flow2speed(inSpace, flow, currentIter, FL, LIMIT)
-    
-    print "Pre expo equilibrium calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
-    inSpacepre=inSpace
 
-
-    # Post equilibrium calculation
-    print "Post expo equilibrium calculation starts on", time.strftime("%d/%m/%Y - %H:%M:%S")
-    inSpace = "C:/Users/Dennis/Desktop/Post/"
-    inTTp = inSpace+"TTpubPost.csv"
-    inSpeed = "detspd" + str(currentIter - 1) + ".csv"
-    base = "DriveOnly_LA.gdb"
-    temp = "LA-scratch.gdb"
-    base = inSpace+base
-    temp = inSpace+temp
-    print inTTp, ", at", inSpace, "using speed vector", inSpeed
-
-    # 0, create temp scratch
-    print "Setting up scratch version"
-    ModSetupWorker.clearOld(base,temp)
-    print "Scratch version set up.  Proceding..."
-
-    # 1, update speed, recalculate cost 
-    print "Update Speed..."
-    ModJoinSpeed.joinSpeed(inSpace, inGdb, inSpeed)
-
-    # 2, rebuild network dataset
-    print "Speed updated. Rebuild Dataset..."
-    ModBuild.build(inSpace, inGdb)
-    
-    # 3, solve network
-    print "Dataset rebuilt. Solve for TT, TD, DT"
-    ModSolve.solveAccu(inSpace, inGdb, fcTAZ, fcDet)
-
-    print "Predicting flow from gravity equation"
-    pinFlow = inSpacepre+'CSV/TotalTTflow'+str(currentIter)+'.csv'
-    update_step2(inSpace, currentIter, inTTp, pinFlow)
-
-    print "Flow Allocation"
-    inFlow = inSpace + "CSV/TTflow" + str(currentIter) + ".csv"
-    flow = ModAlloc.alloc(inSpace, inFlow, currentIter)
-
-    ModSpeedCalc_avg10.flow2speed(inSpace, flow, currentIter, FL, LIMIT)
-
-    print "Post expo equilibrium calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
+    print "Driving calculation completes on", time.strftime("%d/%m/%Y - %H:%M:%S")
 
